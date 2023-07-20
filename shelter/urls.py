@@ -24,6 +24,7 @@ urlpatterns = [
         PetDetailView.as_view(),
         name="pet-detail"
     ),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 app_name = "shelter"
