@@ -12,3 +12,14 @@ class CatForm(forms.ModelForm):
     class Meta:
         model = Pet
         fields = "__all__"
+
+
+class DogForm(forms.ModelForm):
+    breed = forms.ModelChoiceField(
+        queryset=Breed.objects.filter(type__name="Dog"),
+        required=False
+    )
+
+    class Meta:
+        model = Pet
+        fields = "__all__"

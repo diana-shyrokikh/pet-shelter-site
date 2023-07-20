@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>{{ object|yesno:"Update, Create" }} Profile | Pet Shelter</title>
+{% endblock %}
+
+{% block content %}
+  <div class="w3-display-container" style="height: 1000px">
+    <div class="w3-card-4 w3-margin w3-round-xxlarge w3-half w3-display-topmiddle">
+      <div class="w3-container w3-black w3-round-xxlarge">
+        <h2 class="w3-text-yellow w3-center">{{ object|yesno:"Update, Create" }} Dog Profile</h2>
+      </div>
+
+      <form class="w3-container w3-padding" method="post" action="{% url 'shelter:dog-create' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+          <label for="name" class="w3-text-black w3-padding"><b>Name:</b></label>
+          <input id="name" class="w3-input w3-border w3-sand w3-round-xxlarge" name="name" type="text" required>
+        </p>
+        <p>
+          <label class="w3-text-black w3-padding"><b>Gender:</b></label>
+          <div class="w3-row w3-center">
+            <p class="w3-half">
+              <label>
+                <input class="w3-radio" type="radio" name="gender" value="Male" checked>
+                Male
+              </label>
+            </p>
+            <p class="w3-half">
+              <label>
+                <input class="w3-radio" type="radio" name="gender" value="Female" required>
+                Female
+              </label>
+            </p>
+          </div>
+        </p>
+        <p>
+          <label for="breed" class="w3-text-black w3-padding"><b>Breed:</b></label>
+          <select id="breed" class="w3-select w3-border w3-sand w3-round-xxlarge" name="breed">
+            <option value="" disabled selected>Choose breed</option>
+            {% if form.breed %}
+              {% for breed in form.breed %}
+                <option value="breed">{{ breed }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </p>
+        <p>
+          <label for="age" class="w3-text-black w3-padding"><b>Age:</b></label>
+          <input id="age" class="w3-input w3-border w3-sand w3-round-xxlarge" name="age" type="number" value="0">
+        </p>
+        <p>
+          <label for="description" class="w3-text-black w3-padding"><b>Description:</b></label>
+          <textarea id="description" class="w3-input w3-border w3-sand w3-round-xxlarge" name="description" rows="5" cols="40" style="resize: none;"></textarea>
+        </p>
+        <p>
+          <label for="last_vet_visit" class="w3-text-black w3-padding"><b>Last vet visit:</b></label>
+          <input id="last_vet_visit" class="w3-input w3-border w3-sand w3-round-xxlarge" name="last_vet_visit" type="date">
+        </p>
+        <p>
+          <label for="left_at" class="w3-text-black w3-padding"><b>Found a family:</b></label>
+          <input id="left_at" class="w3-input w3-border w3-sand w3-round-xxlarge" name="last_vet_visit" type="date">
+        </p>
+        <p>
+          <label class="w3-text-black w3-padding"><b>Photo</b></label>
+          <label for="photo" class="w3-button w3-black w3-text-yellow w3-round-xxlarge w3-padding">Add a photo:</label>
+          <input id="photo" class="w3-border w3-sand w3-round-xxlarge" name="photo" type="file" style="display: none;">
+        </p>
+        <input class="w3-radio" type="hidden" name="type" value="1">
+        <p class="w3-center">
+          <br>
+        <button class="w3-btn w3-black w3-text-yellow w3-round-xxlarge" type="submit"><b>Submit</b></button>
+        </p>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -5,7 +5,7 @@ from shelter.views import (
     CatListView,
     DogListView,
     PetDetailView,
-    PetListView, CatCreateView,
+    PetListView, CatCreateView, DogCreateView,
 )
 
 urlpatterns = [
@@ -14,6 +14,11 @@ urlpatterns = [
         "dogs/",
         DogListView.as_view(),
         name="dog-list"
+    ),
+    path(
+        "dogs/create/",
+        DogCreateView.as_view(),
+        name="dog-create"
     ),
     path(
         "cats/",
