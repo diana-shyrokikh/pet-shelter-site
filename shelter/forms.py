@@ -1,6 +1,7 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
-from shelter.models import Pet, Breed
+from shelter.models import Pet, Breed, PetOwner
 
 
 class CatForm(forms.ModelForm):
@@ -23,3 +24,15 @@ class DogForm(forms.ModelForm):
     class Meta:
         model = Pet
         fields = "__all__"
+
+
+class PetOwnerCreationForm(UserCreationForm):
+    class Meta:
+        model = PetOwner
+        fields = UserCreationForm.Meta.fields + (
+            "first_name",
+            "last_name",
+            "email",
+            "phone_number"
+        )
+

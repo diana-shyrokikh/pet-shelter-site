@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+   <title>{{ object|yesno:"Update, Create" }} Profile | Pet Shelter</title>
+{% endblock %}
+
+{% block content %}
+  <div class="w3-display-container" style="height: 1000px">
+    <div class="w3-card-4 w3-margin w3-round-xxlarge w3-half w3-display-topmiddle">
+      <div class="w3-container w3-black w3-round-xxlarge">
+        <h2 class="w3-text-yellow w3-center">{{ object|yesno:"Update, Create" }} User Profile</h2>
+      </div>
+      <form class="w3-container w3-padding" method="post" action="{% if object %} {% url 'shelter:cat-update' pk=object.id %} {% else %} {% url 'shelter:pet-owner-create' %}{% endif %}">
+        {% csrf_token %}
+        <p>
+          <label for="username" class="w3-text-black w3-padding"><b>Username:</b></label>
+          <input id="username" class="w3-input w3-border w3-sand w3-round-xxlarge" name="username" type="text" {% if object %} value="{{ object.username }}" {% endif %} required>
+        </p>
+        <p>
+          <label for="password1" class="w3-text-black w3-padding"><b>Password:</b></label>
+          <input id="password1" class="w3-input w3-border w3-sand w3-round-xxlarge" name="password1" type="password" {% if object %} value="{{ object.password }}" {% endif %} required>
+        </p>
+        <p>
+          <label for="password2" class="w3-text-black w3-padding"><b>Password confirmation:</b></label>
+          <input id="password2" class="w3-input w3-border w3-sand w3-round-xxlarge" name="password2" type="password" {% if object %} value="{{ object.password }}" {% endif %} required>
+        </p>
+        <p>
+          <label for="first_name" class="w3-text-black w3-padding"><b>First name:</b></label>
+          <input id="first_name" class="w3-input w3-border w3-sand w3-round-xxlarge" name="first_name" type="text" {% if object %} value="{{ object.first_name }}" {% endif %} required>
+        </p>
+        <p>
+          <label for="last_name" class="w3-text-black w3-padding"><b>Last name:</b></label>
+          <input id="last_name" class="w3-input w3-border w3-sand w3-round-xxlarge" name="last_name" type="text" {% if object %} value="{{ object.last_name }}" {% endif %} required>
+        </p>
+        <p>
+          <label for="email" class="w3-text-black w3-padding"><b>Email address:</b></label>
+          <input id="email" class="w3-input w3-border w3-sand w3-round-xxlarge" name="email" type="email" {% if object %} value="{{ object.email }}" {% endif %} required>
+        </p>
+        <p>
+          <label for="phone_number" class="w3-text-black w3-padding"><b>Phone number:</b></label>
+          <input id="phone_number" class="w3-input w3-border w3-sand w3-round-xxlarge" name="phone_number" type="text" {% if object %} value="{{ object.phone_number }}" {% endif %} required>
+        </p>
+
+        <p class="w3-center">
+          <br><button class="w3-btn w3-black w3-text-yellow w3-round-xxlarge" type="submit"><b>Submit</b></button>
+        </p>
+        </form>
+    </div>
+  </div>
+{% endblock %}

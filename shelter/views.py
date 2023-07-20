@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from shelter.forms import CatForm, DogForm
+from shelter.forms import CatForm, DogForm, PetOwnerCreationForm
 from shelter.models import Pet, PetOwner
 
 
@@ -95,5 +95,11 @@ class PetOwnerListView(StaffUserRequiredMixin, generic.ListView):
     context_object_name = "pet_owner_list"
     queryset = PetOwner.objects.order_by("-date_joined")
     paginate_by = 5
+
+
+class PetOwnerCreateView(StaffUserRequiredMixin, generic.CreateView):
+    form_class = PetOwnerCreationForm
+    template_name = "shelter/pet_owner_form.html"
+    success_url = reverse_lazy("shelter:pet-list")
 
 

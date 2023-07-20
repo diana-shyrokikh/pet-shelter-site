@@ -11,6 +11,7 @@ from shelter.views import (
     PetDetailView,
     PetListView,
     PetOwnerListView,
+    PetOwnerCreateView
 )
 
 urlpatterns = [
@@ -59,6 +60,11 @@ urlpatterns = [
         "users/",
         PetOwnerListView.as_view(),
         name="pet-owner-list"
+    ),
+    path(
+        "users/create",
+        PetOwnerCreateView.as_view(),
+        name="pet-owner-create"
     ),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
