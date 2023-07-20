@@ -36,3 +36,8 @@ class PetOwnerCreationForm(UserCreationForm):
             "phone_number"
         )
 
+
+class PetOwnerUpdateForm(forms.ModelForm):
+    class Meta:
+        model = PetOwner
+        fields = ("email", "phone_number")

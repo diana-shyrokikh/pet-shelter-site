@@ -13,7 +13,8 @@ from shelter.views import (
     PetListView,
     PetOwnerListView,
     PetOwnerCreateView,
-    PetOwnerDetailView
+    PetOwnerDetailView,
+    PetOwnerUpdateView,
 )
 
 urlpatterns = [
@@ -77,6 +78,11 @@ urlpatterns = [
         "users/<int:pk>/detail/",
         PetOwnerDetailView.as_view(),
         name="pet-owner-detail"
+    ),
+    path(
+        "users/<int:pk>/update/",
+        PetOwnerUpdateView.as_view(),
+        name="pet-owner-update"
     ),
     path("accounts/", include("django.contrib.auth.urls")),
 ]

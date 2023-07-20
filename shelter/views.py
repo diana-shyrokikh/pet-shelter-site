@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from shelter.forms import CatForm, DogForm, PetOwnerCreationForm
+from shelter.forms import CatForm, DogForm, PetOwnerCreationForm, PetOwnerUpdateForm
 from shelter.models import Pet, PetOwner
 
 
@@ -130,3 +130,8 @@ class PetOwnerDetailView(generic.DetailView):
     context_object_name = "pet_owner_detail"
 
 
+class PetOwnerUpdateView(generic.UpdateView):
+    model = PetOwner
+    form_class = PetOwnerUpdateForm
+    template_name = "shelter/pet_owner_form.html"
+    success_url = reverse_lazy("shelter:index")
