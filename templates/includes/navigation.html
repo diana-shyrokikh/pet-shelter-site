@@ -27,7 +27,7 @@
       {% endif %}
     {% if user.is_authenticated %}
       <a
-        href="#"
+        href="{% url 'shelter:pet-owner-detail' pk=user.id %}"
         style="font-size:20px" class="w3-bar-item w3-mobile w3-button w3-text-yellow w3-padding-16 w3-right w3-hover-none w3-hover-text-white">
           Welcome <b>{{ user.username }}</b>
       </a>

@@ -25,7 +25,7 @@ def index(request):
     }
     return render(request, "shelter/index.html", context=context)
 
-
+#add staffuser decorator
 def adopt_pet_to_user(request, pk):
     pet = get_object_or_404(Pet, pk=pk)
     username = request.POST.get("username")
@@ -41,11 +41,7 @@ def adopt_pet_to_user(request, pk):
         pet_owner.pets.add(pet)
     pet_owner.save()
 
-    context = {
-        "pet": pet,
-    }
     return redirect('shelter:pet-detail', pk=pet.id)
-    # return render(request, "shelter/pet_detail.html", context)
 
 
 class StaffUserRequiredMixin(AccessMixin):
@@ -126,5 +122,11 @@ class PetOwnerCreateView(StaffUserRequiredMixin, generic.CreateView):
     form_class = PetOwnerCreationForm
     template_name = "shelter/pet_owner_form.html"
     success_url = reverse_lazy("shelter:pet-list")
+
+
+class PetOwnerDetailView(generic.DetailView):
+    model = PetOwner
+    template_name = "shelter/pet_owner_detail.html"
+    context_object_name = "pet_owner_detail"
 
 

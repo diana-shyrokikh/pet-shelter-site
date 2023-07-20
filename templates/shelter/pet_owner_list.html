@@ -21,7 +21,7 @@
     {% for pet_owner in pet_owner_list %}
     <tr>
       <td style="vertical-align: middle;">
-        <a href="">
+        <a href="{% url 'shelter:pet-owner-detail' pk=pet_owner.id %}">
           <b>{{ pet_owner.username }}</b>
         </a>
       </td>

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  <title>User Profile | Pet Shelter</title>
+{% endblock %}
+
+{% block content %}
+
+  <div class="w3-row">
+
+    <div class="w3-twothird">
+
+      <div class="w3-container w3-card w3-white w3-margin w3-round-xxlarge">
+        <h2 class="w3-padding-16">User: <b>{{ pet_owner_detail.username }}</b></h2>
+        <h6>
+          <i class="fa fa-calendar fa-fw w3-margin-right"></i>
+            {{ pet_owner_detail.date_joined.date }} -
+            <span class="w3-tag w3-round">Current</span>
+        </h6>
+        <hr>
+        <h4>First name: <b>{{ pet_owner_detail.first_name }}</b></h4>
+        <h4>Last name: <b>{{ pet_owner_detail.last_name }}</b></h4>
+        <hr>
+        <h4>Email address: <b>{{ pet_owner_detail.email }}</b></h4>
+        <h4>Phone number: <b>{{ pet_owner_detail.phone_number }}</b></h4>
+        <hr>
+        <div class="w3-container w3-center">
+          <a href="{% url 'shelter:dog-update' pk=object.id %}" class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"><b>Update Info</b></a>
+        </div>
+        <br>
+        </div>
+
+      <div class="w3-container w3-card w3-white w3-margin w3-round-xxlarge">
+        <h2 class="w3-padding-16">Free Vet Consultation: </h2>
+        <h4 class="w3-center"><b>VETERINARIX Clinic</b></h4>
+        <hr>
+        <h4>Email address: <b>veterinarix@consulation.vet</b></h4>
+        <h4>Phone number: <b>+38 088 787 77 77</b></h4>
+        <hr>
+        </div>
+
+    </div>
+    <div class="w3-third">
+
+      <div class="w3-container w3-card w3-white w3-margin w3-round-xxlarge">
+        <h2 class="w3-padding-16">Pet List: </h2>
+          {% if pet_owner_detail.pets.all %}
+            {% for pet in pet_owner_detail.pets.all %}
+              <h3>♥
+                <a href="{% url 'shelter:pet-detail' pk=pet.id %}">
+                  {{ pet.name }}
+                </a>
+              </h3>
+            {% endfor %}
+          {% else %}
+            <h3>There are no pets at the moment </h3>
+          {% endif %}
+        <hr>
+        </div>
+
+      <div class="w3-container w3-card w3-white w3-margin w3-round-xxlarge">
+          <h2 class="w3-padding-16">Discount codes: </h2>
+            <h3><b>Happy Cuties Shop:</b> </h3>
+            <h4>♥ PET88SHELTER</h4>
+            <p class="w3-margin-left">discount on feed</p>
+            <hr>
+            <h3><b>Healthy Pet Vet Clinic:</b> </h3>
+            <h4>♥ SHE1LTER9PET</h4>
+            <p class="w3-margin-left">discount on vaccination</p>
+            <hr>
+      </div>
+
+    </div>
+  </div>
+
+<script src="{% static 'js/open-adoption-form.js' %}"></script>{% endblock %}
