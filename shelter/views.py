@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 from shelter.forms import CatForm, DogForm
-from shelter.models import Pet
+from shelter.models import Pet, PetOwner
 
 
 def index(request):
@@ -87,4 +87,13 @@ class PetListView(StaffUserRequiredMixin, generic.ListView):
     model = Pet
     queryset = Pet.objects.select_related("type", "breed", "pet_owner").order_by("-arrived_at")
     paginate_by = 5
+
+
+class PetOwnerListView(StaffUserRequiredMixin, generic.ListView):
+    model = PetOwner
+    template_name = "shelter/pet_owner_list.html"
+    context_object_name = "pet_owner_list"
+    queryset = PetOwner.objects.order_by("-date_joined")
+    paginate_by = 5
+
 

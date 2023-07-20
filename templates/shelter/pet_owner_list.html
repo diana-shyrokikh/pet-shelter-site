@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  <title>User List | Pet Shelter</title>
+{% endblock %}
+
+{% block content %}
+
+  <div class="w3-container">
+  <h2 class="w3-center">User List</h2>
+  {% if pet_owner_list %}
+  <table class="w3-table-all w3-centered" style="font-size: 16px">
+    <tr>
+      <th>Username</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Phone Number</th>
+      <th>Date Joined</th>
+    </tr>
+    {% for pet_owner in pet_owner_list %}
+    <tr>
+      <td style="vertical-align: middle;">
+        <a href="">
+          <b>{{ pet_owner.username }}</b>
+        </a>
+      </td>
+      <td style="vertical-align: middle;">{{ pet_owner.first_name }}</td>
+      <td style="vertical-align: middle;">{{ pet_owner.last_name }}</td>
+      <td style="vertical-align: middle;">{{ pet_owner.phone_number }}</td>
+      <td style="vertical-align: middle;">{{ pet_owner.date_joined }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% else %}
+    <h2 class="w3-center">There are not users</h2>
+  {% endif %}
+
+  </div>
+{% endblock %}
