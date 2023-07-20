@@ -3,9 +3,13 @@ from django.urls import path, include
 from shelter.views import (
     index,
     CatListView,
+    CatCreateView,
+    CatUpdateView,
     DogListView,
+    DogCreateView,
+    DogUpdateView,
     PetDetailView,
-    PetListView, CatCreateView, DogCreateView, CatUpdateView,
+    PetListView,
 )
 
 urlpatterns = [
@@ -19,6 +23,11 @@ urlpatterns = [
         "dogs/create/",
         DogCreateView.as_view(),
         name="dog-create"
+    ),
+    path(
+        "dogs/<int:pk>/update/",
+        DogUpdateView.as_view(),
+        name="dog-update"
     ),
     path(
         "cats/",
