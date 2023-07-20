@@ -26,7 +26,10 @@
     <div class="w3-twothird">
 
       <div class="w3-container w3-card w3-white w3-margin">
-        <h2 class="w3-padding-16"><i class="w3-margin-right w3-xxlarge"></i><b>{{ pet_detail.name }}</b></h2>
+        <h2 class="w3-padding-16"><i class="w3-margin-right"></i><b>{{ pet_detail.name }}</b></h2>
+        {% if user.is_staff %}
+          <h6><i class="w3-margin-right"></i>ID: <b>{{ pet_detail.id }}</b></h6>
+        {% endif %}
 
         <div class="w3-container">
           <h6 class="w3-padding-16">
