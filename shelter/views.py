@@ -1,6 +1,9 @@
+from datetime import date
+
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import AccessMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
@@ -21,6 +24,28 @@ def index(request):
         "num_home_cats": num_home_cats
     }
     return render(request, "shelter/index.html", context=context)
+
+
+def adopt_pet_to_user(request, pk):
+    pet = get_object_or_404(Pet, pk=pk)
+    username = request.POST.get("username")
+    pet_owner = get_user_model().objects.get(username=username)
+
+    if pet in pet_owner.pets.all():
+        pet.left_at = None
+        pet.save()
+        pet_owner.pets.remove(pet)
+    else:
+        pet.left_at = date.today()
+        pet.save()
+        pet_owner.pets.add(pet)
+    pet_owner.save()
+
+    context = {
+        "pet": pet,
+    }
+    return redirect('shelter:pet-detail', pk=pet.id)
+    # return render(request, "shelter/pet_detail.html", context)
 
 
 class StaffUserRequiredMixin(AccessMixin):

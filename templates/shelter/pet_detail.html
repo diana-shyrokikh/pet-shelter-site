@@ -26,10 +26,28 @@
     <div class="w3-twothird">
 
       <div class="w3-container w3-card w3-white w3-margin">
-        <h2 class="w3-padding-16"><i class="w3-margin-right"></i><b>{{ pet_detail.name }}</b></h2>
-        {% if user.is_staff %}
-          <h6><i class="w3-margin-right"></i>ID: <b>{{ pet_detail.id }}</b></h6>
-        {% endif %}
+        <h2 class="w3-padding-16"><b>{{ pet_detail.name }}</b></h2>
+        <button class="w3-button w3-light-grey" onclick="openAdoptionForm('Demo1')">
+          {% if pet_detail.pet_owner %}
+            Abandon from the pet :(
+          {% else %}
+            Adopt the pet :)
+          {% endif %}
+
+        </button>
+{#        {% if user.is_staff %}#}
+{#          <h6><i class="w3-margin-right"></i>ID: <b>{{ pet_detail.id }}</b></h6>#}
+{#        {% endif %}#}
+        <div id="Demo1" class="w3-hide w3-container w3-light-grey">
+          <form action="{% url 'shelter:adopt-pet' pk=object.id %}" method="post">
+            {% csrf_token %}
+            <label>
+              Username:
+              <input type="text" name="username">
+            </label>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
 
         <div class="w3-container">
           <h6 class="w3-padding-16">
@@ -81,4 +99,5 @@
       </div>
     </div>
   </div>
-{% endblock %}
+
+<script src="{% static 'js/open-adoption-form.js' %}"></script>{% endblock %}

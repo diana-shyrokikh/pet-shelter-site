@@ -1,6 +1,7 @@
 from django.urls import path, include
 
 from shelter.views import (
+    adopt_pet_to_user,
     index,
     CatListView,
     CatCreateView,
@@ -11,7 +12,7 @@ from shelter.views import (
     PetDetailView,
     PetListView,
     PetOwnerListView,
-    PetOwnerCreateView
+    PetOwnerCreateView,
 )
 
 urlpatterns = [
@@ -65,6 +66,11 @@ urlpatterns = [
         "users/create",
         PetOwnerCreateView.as_view(),
         name="pet-owner-create"
+    ),
+    path(
+        "pets/<int:pk>/adopt/",
+        adopt_pet_to_user,
+        name="adopt-pet"
     ),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
