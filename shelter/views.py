@@ -48,6 +48,13 @@ class CatCreateView(StaffUserRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("shelter:cat-list")
 
 
+class CatUpdateView(StaffUserRequiredMixin, generic.UpdateView):
+    model = Pet
+    form_class = CatForm
+    template_name = "shelter/cat_form.html"
+    success_url = reverse_lazy("shelter:cat-list")
+
+
 class DogListView(generic.ListView):
     model = Pet
     template_name = "shelter/dog_list.html"
