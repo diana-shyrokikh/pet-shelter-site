@@ -12,6 +12,7 @@
   {% if pet_list %}
   <table class="w3-table-all w3-centered" style="font-size: 16px">
     <tr>
+      <th>ID</th>
       <th>Name</th>
       <th>Type</th>
       <th>Gender</th>
@@ -21,6 +22,7 @@
     </tr>
     {% for pet in pet_list %}
     <tr>
+      <td style="vertical-align: middle;">{{ pet.id }}</td>
       <td style="vertical-align: middle;">
         <a href="{% url 'shelter:pet-detail' pk=pet.id %}">
           <b>{{ pet.name }}</b>
