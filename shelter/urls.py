@@ -5,6 +5,7 @@ from shelter.views import (
     CatListView,
     DogListView,
     PetDetailView,
+    PetListView,
 )
 
 urlpatterns = [
@@ -23,6 +24,11 @@ urlpatterns = [
         "pets/<int:pk>/detail/",
         PetDetailView.as_view(),
         name="pet-detail"
+    ),
+    path(
+        "pets/",
+        PetListView.as_view(),
+        name="pet-list"
     ),
     path("accounts/", include("django.contrib.auth.urls")),
 ]

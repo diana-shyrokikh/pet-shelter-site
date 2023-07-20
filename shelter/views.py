@@ -55,3 +55,8 @@ class StaffUserRequiredMixin(AccessMixin):
 
         return super(StaffUserRequiredMixin, self).dispatch(request, *args, **kwargs)
 
+
+class PetListView(StaffUserRequiredMixin, generic.ListView):
+    model = Pet
+    queryset = Pet.objects.select_related("type", "breed", "pet_owner").order_by("-arrived_at")
+    paginate_by = 5
