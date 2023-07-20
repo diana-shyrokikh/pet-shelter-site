@@ -4,8 +4,8 @@
 {% block content %}
 
   <div class="w3-container">
-  <h2 class="w3-center">Cat List</h2>
-  {% if cat_list %}
+  <h2 class="w3-center">Dog List</h2>
+  {% if dog_list %}
   <table class="w3-table-all w3-centered" style="font-size: 16px">
     <tr>
       <th>Name</th>
@@ -14,32 +14,32 @@
       <th>Age</th>
       <th>Photo</th>
     </tr>
-    {% for cat in cat_list %}
-      <tr>
+    {% for dog in dog_list %}
+    <tr>
       <td style="vertical-align: middle;">
         <a href="">
-          <b>{{ cat.name }}</b>
+          <b>{{ dog.name }}</b>
         </a>
       </td>
-      <td style="vertical-align: middle;">{{ cat.gender }}</td>
+      <td style="vertical-align: middle;">{{ dog.gender }}</td>
       <td style="vertical-align: middle;">
-        {% if cat.breed.name %}
-          {{ cat.breed.name }}
+        {% if dog.breed.name %}
+          {{ dog.breed.name }}
         {% else %}
           unknown
         {% endif %}
       </td>
       <td style="vertical-align: middle;">
-        {% if cat.age %}
-          {{ cat.age }} year{{ cat.age|pluralize }}
+        {% if dog.age %}
+          {{ dog.age }} year{{ dog.age|pluralize }}
         {% else %}
           unknown
         {% endif %}
       </td>
       <td>
         <a href="">
-          {% if cat.photo %}
-            <img src="{{ cat.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Cat Photo">
+          {% if dog.photo %}
+            <img src="{{ dog.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Dog Photo">
           {% else %}
             <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
           {% endif %}
@@ -50,7 +50,7 @@
   </table>
 
   {% else %}
-    <h2 class="w3-center">All our cats found family!</h2>
+    <h2 class="w3-center">All our dogs found family!</h2>
   {% endif %}
 
   </div>

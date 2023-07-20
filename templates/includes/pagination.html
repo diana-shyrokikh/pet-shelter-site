@@ -1,0 +1,18 @@
+{% if is_paginated %}
+  <div class="pagination w3-center w3-bar w3-margin">
+    {% if page_obj.has_previous %}
+      <a href="?page= {{ page_obj.previous_page_number }}" class="w3-button" style="font-size: 18px">&laquo;</a>
+    {% else %}
+      <a href="" class="w3-button" style="font-size: 18px">&laquo;</a>
+    {% endif %}
+
+    <span class="page-link" style="font-size: 18px">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+      <a href="?page= {{ page_obj.next_page_number }}" class="w3-button" style="font-size: 18px">&raquo;</a>
+    {% else %}
+      <a href="" class="w3-button" style="font-size: 18px">&raquo;</a>
+    {% endif %}
+
+  </div>
+{% endif %}
