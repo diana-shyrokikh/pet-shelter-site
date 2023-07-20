@@ -29,7 +29,15 @@
         <h2 class="w3-padding-16"><i class="w3-margin-right w3-xxlarge"></i><b>{{ pet_detail.name }}</b></h2>
 
         <div class="w3-container">
-          <h6 class="w3-padding-16"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ pet_detail.arrived_at }} - <span class="w3-tag w3-round">Current</span></h6>
+          <h6 class="w3-padding-16">
+            <i class="fa fa-calendar fa-fw w3-margin-right"></i>
+            {{ pet_detail.arrived_at }} -
+            {% if not pet_detail.left_at %}
+              <span class="w3-tag w3-round">Current</span>
+            {% else %}
+              {{ pet_detail.left_at }}
+            {% endif %}
+          </h6>
           <h5><b>Type:</b> {{ pet_detail.type }}</h5>
           <h5>
             <b>Breed:</b>
