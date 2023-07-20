@@ -24,28 +24,26 @@
     </div>
 
     <div class="w3-twothird">
-
       <div class="w3-container w3-card w3-white w3-margin">
         <h2 class="w3-padding-16"><b>{{ pet_detail.name }}</b></h2>
-        <button class="w3-button w3-light-grey" onclick="openAdoptionForm('Demo1')">
-          {% if pet_detail.pet_owner %}
-            Abandon from the pet :(
-          {% else %}
-            Adopt the pet :)
-          {% endif %}
-
-        </button>
-{#        {% if user.is_staff %}#}
-{#          <h6><i class="w3-margin-right"></i>ID: <b>{{ pet_detail.id }}</b></h6>#}
-{#        {% endif %}#}
-        <div id="Demo1" class="w3-hide w3-container w3-light-grey">
+        {% if user.is_staff %}
+          <button class="w3-btn w3-black w3-text-yellow w3-round-xxlarge" onclick="openAdoptionForm('Button')">
+            {% if pet_detail.pet_owner %}
+              Abandon from the pet :(
+            {% else %}
+              Adopt the pet :)
+            {% endif %}
+          </button>
+        {% endif %}
+        <div id="Button" class="w3-hide w3-container w3-white w3-margin">
           <form action="{% url 'shelter:adopt-pet' pk=object.id %}" method="post">
             {% csrf_token %}
-            <label>
-              Username:
-              <input type="text" name="username">
+            <label for="username" class="w3-padding">
+              Pet's owner username:
             </label>
-            <input type="submit" value="Submit">
+            <input id="username" type="text" name="username" class="w3-input w3-border w3-sand w3-round-xxlarge" style="width: 30%">
+            <br>
+            <button class="w3-btn w3-black w3-text-yellow w3-round-xxlarge" type="submit"><b>Submit</b></button>
           </form>
         </div>
 
