@@ -10,24 +10,26 @@
         <h2 class="w3-text-yellow w3-center">{{ object|yesno:"Update, Create" }} Cat Profile</h2>
       </div>
 
-      <form class="w3-container w3-padding" method="post" action="{% url 'shelter:cat-create' %}" enctype="multipart/form-data">
+{#      <form class="w3-container w3-padding" method="post" action="{{ object|yesno:"{% url 'shelter:cat-update' pk=cat.id %}, {% url 'shelter:cat-create' %}" }}" enctype="multipart/form-data">#}
+      <form class="w3-container w3-padding" method="post" action="{% if object %} {% url 'shelter:cat-update' pk=object.id %} {% else %} {% url 'shelter:cat-create' %}{% endif %}" enctype="multipart/form-data">
+
         {% csrf_token %}
         <p>
           <label for="name" class="w3-text-black w3-padding"><b>Name:</b></label>
-          <input id="name" class="w3-input w3-border w3-sand w3-round-xxlarge" name="name" type="text" required>
+          <input id="name" class="w3-input w3-border w3-sand w3-round-xxlarge" name="name" type="text" {% if object %} value="{{ object.name }}" {% endif %} required>
         </p>
         <p>
           <label class="w3-text-black w3-padding"><b>Gender:</b></label>
           <div class="w3-row w3-center">
             <p class="w3-half">
               <label>
-                <input class="w3-radio" type="radio" name="gender" value="Male" checked>
+                <input class="w3-radio" type="radio" name="gender" value="Male" checked {% if object.gender == "Male" %} checked {% endif %}>
                 Male
               </label>
             </p>
             <p class="w3-half">
               <label>
-                <input class="w3-radio" type="radio" name="gender" value="Female" required>
+                <input class="w3-radio" type="radio" name="gender" value="Female" {% if object.gender == "Female" %} checked {% endif %} required>
                 Female
               </label>
             </p>
@@ -46,19 +48,17 @@
         </p>
         <p>
           <label for="age" class="w3-text-black w3-padding"><b>Age:</b></label>
-          <input id="age" class="w3-input w3-border w3-sand w3-round-xxlarge" name="age" type="number" value="0">
+          <input id="age" class="w3-input w3-border w3-sand w3-round-xxlarge" name="age" type="number" {% if object %} value="{{ object.age }}" {% else %} value="0" {% endif %}>
         </p>
         <p>
           <label for="description" class="w3-text-black w3-padding"><b>Description:</b></label>
-          <textarea id="description" class="w3-input w3-border w3-sand w3-round-xxlarge" name="description" rows="5" cols="40" style="resize: none;"></textarea>
-        </p>
-        <p>
-          <label for="last_vet_visit" class="w3-text-black w3-padding"><b>Last vet visit:</b></label>
-          <input id="last_vet_visit" class="w3-input w3-border w3-sand w3-round-xxlarge" name="last_vet_visit" type="date">
+          <textarea id="description" class="w3-input w3-border w3-sand w3-round-xxlarge" name="description" rows="5" cols="40" style="resize: none;">
+            {% if object %} {{ object.description }} {% endif %}
+          </textarea>
         </p>
         <p>
           <label for="left_at" class="w3-text-black w3-padding"><b>Found a family:</b></label>
-          <input id="left_at" class="w3-input w3-border w3-sand w3-round-xxlarge" name="last_vet_visit" type="date">
+          <input id="left_at" class="w3-input w3-border w3-sand w3-round-xxlarge" name="left_at" type="date" {% if object %} value="{{ object.left_at }}" {% endif %}>
         </p>
         <p>
           <label class="w3-text-black w3-padding"><b>Photo</b></label>
