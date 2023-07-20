@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import AccessMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 
+from shelter.forms import CatForm
 from shelter.models import Pet
 
 
@@ -60,3 +61,9 @@ class PetListView(StaffUserRequiredMixin, generic.ListView):
     model = Pet
     queryset = Pet.objects.select_related("type", "breed", "pet_owner").order_by("-arrived_at")
     paginate_by = 5
+
+
+class CatCreateView(StaffUserRequiredMixin, generic.CreateView):
+    form_class = CatForm
+    template_name = "shelter/cat_form.html"
+    success_url = reverse_lazy("shelter:cat-list")
