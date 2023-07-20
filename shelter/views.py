@@ -63,7 +63,7 @@ class CatListView(generic.ListView):
     model = Pet
     template_name = "shelter/cat_list.html"
     context_object_name = "cat_list"
-    queryset = Pet.objects.filter(type__name="Cat").order_by("-arrived_at")
+    queryset = Pet.objects.filter(type__name="Cat", left_at__isnull=True).order_by("-arrived_at")
     paginate_by = 5
 
 
@@ -84,7 +84,7 @@ class DogListView(generic.ListView):
     model = Pet
     template_name = "shelter/dog_list.html"
     context_object_name = "dog_list"
-    queryset = Pet.objects.filter(type__name="Dog").order_by("-arrived_at")
+    queryset = Pet.objects.filter(type__name="Dog", left_at__isnull=True).order_by("-arrived_at")
     paginate_by = 5
 
 
