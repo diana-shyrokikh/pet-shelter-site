@@ -9,8 +9,6 @@
       <div class="w3-container w3-black w3-round-xxlarge">
         <h2 class="w3-text-yellow w3-center">{{ object|yesno:"Update, Create" }} Cat Profile</h2>
       </div>
-
-{#      <form class="w3-container w3-padding" method="post" action="{{ object|yesno:"{% url 'shelter:cat-update' pk=cat.id %}, {% url 'shelter:cat-create' %}" }}" enctype="multipart/form-data">#}
       <form class="w3-container w3-padding" method="post" action="{% if object %} {% url 'shelter:cat-update' pk=object.id %} {% else %} {% url 'shelter:cat-create' %}{% endif %}" enctype="multipart/form-data">
 
         {% csrf_token %}
@@ -55,10 +53,6 @@
           <textarea id="description" class="w3-input w3-border w3-sand w3-round-xxlarge" name="description" rows="5" cols="40" style="resize: none;">
             {% if object %} {{ object.description }} {% endif %}
           </textarea>
-        </p>
-        <p>
-          <label for="left_at" class="w3-text-black w3-padding"><b>Found a family:</b></label>
-          <input id="left_at" class="w3-input w3-border w3-sand w3-round-xxlarge" name="left_at" type="date" {% if object %} value="{{ object.left_at }}" {% endif %}>
         </p>
         <p>
           <label class="w3-text-black w3-padding"><b>Photo</b></label>
