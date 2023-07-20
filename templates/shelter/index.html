@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Home | Pet Shelter</title>
+{% endblock %}
+{% block content %}
+  <div class="w3-display-container">
+    {% load static %}
+    <img src="{% static "images/welcome_page.jpg" %}" style="width:100%;" alt="Welcome Page">
+
+  <div class="w3-bar w3-black w3-big">
+    <button class="w3-bar-item w3-button tablink w3-text-yellow" style="width:25%; font-size:20px" onclick="openTab(event,'About Us')">About Us</button>
+    <button class="w3-bar-item w3-button tablink w3-text-yellow" style="width:25%; font-size:20px" onclick="openTab(event,'Animal Care')">Animal Care</button>
+    <button class="w3-bar-item w3-button tablink w3-text-yellow" style="width:25%; font-size:20px" onclick="openTab(event,'Adoption Service')">Adoption Service</button>
+    <button class="w3-bar-item w3-button tablink w3-text-yellow" style="width:25%; font-size:20px" onclick="openTab(event,'Our support program')">Our support program</button>
+
+  </div>
+  <div id="About Us" class="w3-card w3-black tab" style="width:100%;">
+    <header class="w3-container w3-orange">
+      <h2>About Us</h2>
+    </header>
+
+    <div class="w3-container" style="font-size: 18px">
+      <p>
+        We are a dedicated and compassionate animal rescue organization
+        committed to providing a safe haven for animals in need.
+        Our mission is to rescue, rehabilitate, and rehome stray,
+        abandoned, and surrendered animals,
+        ultimately giving them a second chance at a loving and forever home.
+      </p>
+      <p>
+        We believe that every animal deserves a chance to be cherished and cared for.
+        With a team of experienced staff members and a network of passionate volunteers,
+        we work tirelessly to ensure the physical and
+        emotional well-being of the animals under our care.
+      </p>
+      <p>
+        At the moment in our shelter
+        {{ num_shelter_cats }} cat{{ num_shelter_cats|pluralize }}
+        and {{ num_shelter_dogs }} dog{{ num_shelter_dogs|pluralize }}
+        are waiting to be a part of your loving family.
+        At the same time we helped to find a home for
+        {{ num_home_dogs }} dog{{ num_home_dogs|pluralize }}
+        and {{ num_home_cats }} cat{{ num_home_cats|pluralize }}.
+      </p>
+    </div>
+  </div>
+  <div id="Animal Care" class="w3-card w3-black tab" style="width:100%; display:none">
+    <header class="w3-container w3-orange">
+      <h2>Animal Care</h2>
+    </header>
+
+    <div class="w3-container" style="font-size: 18px">
+      <p>
+        Our shelter provides a temporary sanctuary where animals receive the love,
+        nourishment, and medical attention they require.
+        We offer a nurturing environment that promotes socialization
+        and helps animals regain their trust in humans.
+      </p>
+      <p>
+        Whether it's a playful kitten, a senior dog seeking companionship,
+        or a misunderstood breed looking for a fresh start,
+        we welcome all animals with open arms.
+        We have a dedicated team of staff members, volunteers, including veterinaries,
+        who provides veterinary care, even after adopting pet.
+      </p>
+    </div>
+  </div>
+  <div id="Adoption Service" class="w3-card w3-black tab" style="width:100%; display:none">
+    <header class="w3-container w3-orange">
+      <h2>Adoption Service</h2>
+    </header>
+
+    <div class="w3-container" style="font-size: 18px">
+      <p>
+        Through our diligent adoption process,
+        we strive to find the perfect match between our animals and loving families.
+        We carefully screen potential adopters to ensure responsible ownership and
+        a compatible lifestyle, taking into consideration the unique needs
+        and personalities of each animal.
+      </p>
+      <p>
+        The process of adoption is the next:
+        <ol>
+          <li>
+            You can pick any pet you like on our website and then connect with us
+            to arrange the meting with the pet.
+          </li>
+          <li>
+            In case you and pet like each other, and you are ready to
+          take our pet in the family, we start adoption process.
+          </li>
+          <li>
+            After successful screening, we create your account on our website
+            to keep in touch with you and to open our support program for you.
+          </li>
+        </ol>
+    </div>
+  </div>
+  <div id="Our support program" class="w3-card w3-black tab" style="width:100%; display:none">
+    <header class="w3-container w3-orange">
+      <h2>Our support program</h2>
+    </header>
+
+    <div class="w3-container" style="font-size: 18px">
+      <p>
+        After adoption our pet you will become a participant automatically
+        in our support program.
+      </p>
+      <p>
+        The support program includes:
+        <ul>
+          <li>
+            a free consultation with our veterinary specialists,
+            whose contacts you will find in your profile;
+          </li>
+          <li>
+            the discounts on some animal feed in our partner zoo shop
+            by promo-code on your profile;
+          </li>
+          <li>
+            the discounts on vaccinations in our partner vet clinic
+            by promo-code on your profile;
+          </li>
+          <li>
+            our helps in any question connected with pet.
+          </li>
+        </ul>
+    </div>
+  </div>
+
+  <script src="{% static 'js/open-tab.js' %}"></script>
+
+{% endblock %}
