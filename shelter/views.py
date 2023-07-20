@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import AccessMixin
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import generic
 
 from shelter.models import Pet
@@ -40,3 +43,15 @@ class PetDetailView(generic.DetailView):
     template_name = "shelter/pet_detail.html"
     context_object_name = "pet_detail"
     queryset = Pet.objects.select_related("type", "breed", "pet_owner")
+
+
+class StaffUserRequiredMixin(AccessMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            if self.raise_exception:
+                raise PermissionDenied
+            else:
+                return redirect(reverse("shelter:index"))
+
+        return super(StaffUserRequiredMixin, self).dispatch(request, *args, **kwargs)
+

@@ -1,0 +1,21 @@
+{% load static %}
+
+<div
+  class="w3-sidebar w3-bar-block w3-round-xxlarge w3-center w3-text-yellow w3-black"
+  style="display:none; font-size: 20px; margin-left: -50px; width: 300px" id="mySidebar">
+    <button class="w3-bar-item w3-button w3-large" onclick="closeSidebar()">
+      Close &times;
+    </button>
+    <br>
+    Menu
+    <br>
+    <br>
+    <a href="" class="w3-bar-item w3-button w3-border-bottom w3-border-yellow">Create Cat Profile</a>
+    <a href="" class="w3-bar-item w3-button w3-border-bottom w3-border-yellow">Create Dog Profile</a>
+    <a href="" class="w3-bar-item w3-button w3-border-bottom w3-border-yellow">Pet List</a>
+    <br>
+    <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-border-yellow">Create User Profile</a>
+    <a href="#" class="w3-bar-item w3-button w3-border-bottom w3-border-yellow">User List</a>
+</div>
+
+<script src="{% static 'js/close-sidebar.js' %}"></script>
