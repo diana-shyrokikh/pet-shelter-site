@@ -17,7 +17,7 @@
     {% for dog in dog_list %}
     <tr>
       <td style="vertical-align: middle;">
-        <a href="">
+        <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
           <b>{{ dog.name }}</b>
         </a>
       </td>
@@ -37,7 +37,7 @@
         {% endif %}
       </td>
       <td>
-        <a href="">
+        <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
           {% if dog.photo %}
             <img src="{{ dog.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Dog Photo">
           {% else %}

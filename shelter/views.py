@@ -33,3 +33,10 @@ class DogListView(generic.ListView):
     context_object_name = "dog_list"
     queryset = Pet.objects.filter(type__name="Dog").order_by("-arrived_at")
     paginate_by = 5
+
+
+class PetDetailView(generic.DetailView):
+    model = Pet
+    template_name = "shelter/pet_detail.html"
+    context_object_name = "pet_detail"
+    queryset = Pet.objects.select_related("type", "breed", "pet_owner")

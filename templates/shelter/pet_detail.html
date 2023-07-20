@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <div class="w3-row-padding">
+
+    <div class="w3-third w3-padding-16">
+
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+          {% if pet_detail.photo %}
+            <img src="{{pet_detail.photo.url}}" class="w3-round" style="width:100%" alt="Pet Photo">
+          {% else %}
+            <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100%" alt="Come Soon">
+          {% endif %}
+        </div>
+      </div><br>
+
+    </div>
+
+    <div class="w3-twothird">
+
+      <div class="w3-container w3-card w3-white w3-margin">
+        <h2 class="w3-padding-16"><i class="w3-margin-right w3-xxlarge"></i><b>{{ pet_detail.name }}</b></h2>
+
+        <div class="w3-container">
+          <h6 class="w3-padding-16"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ pet_detail.arrived_at }} - <span class="w3-tag w3-round">Current</span></h6>
+          <h5><b>Type:</b> {{ pet_detail.type }}</h5>
+          <h5>
+            <b>Breed:</b>
+            {% if pet_detail.breed.name %}
+              {{ pet_detail.breed.name }}
+            {% else %}
+              Unknown
+            {% endif %}
+          </h5>
+          <hr>
+        </div>
+        <div class="w3-container">
+          <h5><b>Gender:</b> {{ pet_detail.gender }}</h5>
+          <h5>
+            <b>Age:</b>
+            {% if pet_detail.age %}
+              {{ pet_detail.age }} year{{ pet_detail.age|pluralize }}
+            {% else %}
+              Unknown
+            {% endif %}
+          </h5>
+          <hr>
+        </div>
+        <div class="w3-container">
+          {% if pet_detail.description %}
+            <h5><b>Description:</b></h5>
+            <h4>{{ pet_detail.description }}</h4>
+          {% endif %}
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

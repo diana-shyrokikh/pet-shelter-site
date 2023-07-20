@@ -16,11 +16,11 @@
     </tr>
     {% for cat in cat_list %}
       <tr>
-      <td style="vertical-align: middle;">
-        <a href="">
-          <b>{{ cat.name }}</b>
-        </a>
-      </td>
+        <td style="vertical-align: middle;">
+          <a href="{% url 'shelter:pet-detail' pk=cat.id %}">
+            <b>{{ cat.name }}</b>
+          </a>
+        </td>
       <td style="vertical-align: middle;">{{ cat.gender }}</td>
       <td style="vertical-align: middle;">
         {% if cat.breed.name %}
@@ -37,7 +37,7 @@
         {% endif %}
       </td>
       <td>
-        <a href="">
+        <a href="{% url 'shelter:pet-detail' pk=cat.id %}">
           {% if cat.photo %}
             <img src="{{ cat.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Cat Photo">
           {% else %}
