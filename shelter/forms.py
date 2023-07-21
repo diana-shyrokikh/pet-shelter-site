@@ -18,6 +18,15 @@ class CatForm(forms.ModelForm):
         fields = "__all__"
 
 
+class CatSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput()
+    )
+
+
 class DogForm(forms.ModelForm):
     breed = forms.ModelChoiceField(
         queryset=Breed.objects.filter(type__name="Dog"),

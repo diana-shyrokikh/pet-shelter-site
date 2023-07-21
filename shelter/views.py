@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from shelter.forms import CatForm, DogForm, PetOwnerCreationForm, PetOwnerUpdateForm
+from shelter.forms import CatForm, DogForm, PetOwnerCreationForm, PetOwnerUpdateForm, CatSearchForm
 from shelter.models import Pet, PetOwner
 
 
@@ -59,8 +59,29 @@ class CatListView(generic.ListView):
     model = Pet
     template_name = "shelter/cat_list.html"
     context_object_name = "cat_list"
-    queryset = Pet.objects.filter(type__name="Cat", left_at__isnull=True).order_by("-arrived_at")
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CatListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+
+        if name:
+            context["search_form"] = CatSearchForm(initial={
+                "name": name,
+            })
+
+        return context
+
+    def get_queryset(self):
+        name = CatSearchForm(self.request.GET)
+        queryset = Pet.objects.filter(type__name="Cat", left_at__isnull=True).order_by("-arrived_at")
+
+        if name.is_valid():
+            return queryset.filter(
+                name__icontains=name.cleaned_data["name"]
+            )
+
+        return queryset
 
 
 class CatCreateView(StaffUserRequiredMixin, generic.CreateView):
