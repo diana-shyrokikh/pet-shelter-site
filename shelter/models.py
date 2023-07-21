@@ -82,9 +82,10 @@ class Pet(models.Model):
     breed = models.ForeignKey(
         to=Breed,
         related_name="pets_breed",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_DEFAULT,
         blank=True,
         null=True,
+        default="unknown"
     )
     age = models.PositiveIntegerField(
         null=True,
