@@ -11,37 +11,66 @@
       </div>
       <form class="w3-container w3-padding" method="post" action="{% if object %} {% url 'shelter:pet-owner-update' pk=object.id %} {% else %} {% url 'shelter:pet-owner-create' %}{% endif %}">
         {% csrf_token %}
+        {% if form.errors %}
+          {% for error in form.error %}
+            <p class="w3-text-red w3-center">{{ error }}</p>
+
+          {% endfor %}
+          {{ form.errors.first_name }}
+        {% else %}
+        
+        {% endif %} 
         {% if not object %}
           <p>
             <label for="username" class="w3-text-black w3-padding"><b>Username:</b></label>
             <input id="username" class="w3-input w3-border w3-sand w3-round-xxlarge" name="username" type="text" required>
+            {% if form.errors.username %}
+              {{ form.errors.username }}
+            {% endif %}
           </p>
           <p>
             <label for="password1" class="w3-text-black w3-padding"><b>Password:</b></label>
             <input id="password1" class="w3-input w3-border w3-sand w3-round-xxlarge" name="password1" type="password" required>
+            {% if form.errors.password1 %}
+              {{ form.errors.password1 }}
+            {% endif %}
           </p>
           <p>
             <label for="password2" class="w3-text-black w3-padding"><b>Password confirmation:</b></label>
             <input id="password2" class="w3-input w3-border w3-sand w3-round-xxlarge" name="password2" type="password" required>
+            {% if form.errors.password2 %}
+              {{ form.errors.password2 }}
+            {% endif %}
           </p>
           <p>
             <label for="first_name" class="w3-text-black w3-padding"><b>First name:</b></label>
             <input id="first_name" class="w3-input w3-border w3-sand w3-round-xxlarge" name="first_name" type="text" required>
+            {% if form.errors.first_name %}
+              {{ form.errors.first_name }}
+            {% endif %}
           </p>
           <p>
             <label for="last_name" class="w3-text-black w3-padding"><b>Last name:</b></label>
             <input id="last_name" class="w3-input w3-border w3-sand w3-round-xxlarge" name="last_name" type="text" required>
+            {% if form.errors.last_name %}
+              {{ form.errors.last_name }}
+            {% endif %}
           </p>
         {% endif %}
         <p>
           <label for="email" class="w3-text-black w3-padding"><b>Email address:</b></label>
           <input id="email" class="w3-input w3-border w3-sand w3-round-xxlarge" name="email" type="email" {% if object %} value="{{ object.email }}" {% endif %} required>
+          {% if form.errors.email %}
+            {{ form.errors.email }}
+          {% endif %}
         </p>
         <p>
           <label for="phone_number" class="w3-text-black w3-padding"><b>Phone number:</b></label>
           <input id="phone_number" class="w3-input w3-border w3-sand w3-round-xxlarge" name="phone_number" type="text" {% if object %} value="{{ object.phone_number }}" {% endif %} required>
+          {% if form.errors.phone_number %}
+            {{ form.errors.phone_number }}
+          {% endif %}
         </p>
-
         <p class="w3-center">
           <br><button class="w3-btn w3-black w3-text-yellow w3-round-xxlarge" type="submit"><b>Submit</b></button>
         </p>
