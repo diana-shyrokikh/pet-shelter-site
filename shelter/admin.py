@@ -59,7 +59,6 @@ class PetAdmin(admin.ModelAdmin):
         "breed",
         "age",
         "arrived_at",
-        "last_vet_visit",
         "left_at"
     ]
     raw_id_fields = ["breed"]

@@ -11,7 +11,6 @@
         <h2 class="w3-text-yellow w3-center">{{ object|yesno:"Update, Create" }} Cat Profile</h2>
       </div>
       <form class="w3-container w3-padding" method="post" action="{% if object %} {% url 'shelter:cat-update' pk=object.id %} {% else %} {% url 'shelter:cat-create' %}{% endif %}" enctype="multipart/form-data">
-
         {% csrf_token %}
         <p>
           <label for="name" class="w3-text-black w3-padding"><b>Name: *</b></label>

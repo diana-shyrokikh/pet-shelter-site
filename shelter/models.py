@@ -1,6 +1,8 @@
-from typing import re
+from datetime import date
+from typing import Any, Callable
 
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import models
 
@@ -39,12 +41,22 @@ class Breed(models.Model):
 
 
 class Pet(models.Model):
+    NAME_PATTERN = r"^[A-Za-z]+$"
+
     GENDERS = [
         ("Female", "Female"),
         ("Male", "Male"),
     ]
 
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255,
+        validators=[
+            RegexValidator(
+                regex=NAME_PATTERN,
+                message="The value must consist of A-z and a-z only"
+            )
+        ],
+    )
     gender = models.CharField(max_length=63, choices=GENDERS)
     type = models.ForeignKey(
         to=Type,
@@ -64,7 +76,6 @@ class Pet(models.Model):
         validators=[MaxValueValidator(50)]
     )
     description = models.TextField(null=True, blank=True)
-    last_vet_visit = models.DateField(null=True, blank=True)
     arrived_at = models.DateField(auto_now_add=True)
     left_at = models.DateField(null=True, blank=True)
     photo = models.ImageField(null=True, blank=True, upload_to="images/")
@@ -82,6 +93,29 @@ class Pet(models.Model):
     def __str__(self):
         return (
             f"{self.type.name}: {self.name}"
+        )
+
+    def clean(self) -> None:
+        if self.left_at:
+            if self.left_at > date.today():
+                raise ValidationError(
+                    message="The date must not be in the future"
+                )
+
+    def save(
+            self,
+            force_insert: bool = False,
+            force_update: bool = False,
+            using: Any = None,
+            update_fields: Any = None
+    ) -> Callable:
+        self.full_clean()
+
+        return super().save(
+            force_insert,
+            force_update,
+            using,
+            update_fields
         )
 
 
