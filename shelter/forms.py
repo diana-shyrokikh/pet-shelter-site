@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from shelter.models import Pet, Breed, PetOwner
+from shelter.models import Pet, Breed, PetOwner, Type
 
 
 class CatForm(forms.ModelForm):
@@ -19,6 +19,9 @@ class DogForm(forms.ModelForm):
     breed = forms.ModelChoiceField(
         queryset=Breed.objects.filter(type__name="Dog"),
         required=False
+    )
+    type = forms.ModelChoiceField(
+        queryset=Type.objects.filter(name="Dog"),
     )
 
     class Meta:
