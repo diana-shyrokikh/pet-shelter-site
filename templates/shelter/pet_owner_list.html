@@ -27,13 +27,13 @@
         </p>
       </form>
     </div>
-    <table class="w3-table-all w3-centered" style="font-size: 16px">
+    <table id="Table" class="w3-table-all w3-centered" style="font-size: 16px">
       <tr>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th style="cursor: pointer;" onclick="sortTable(0)">Username &#x21c5;</th>
+        <th style="cursor: pointer;" onclick="sortTable(1)">First Name &#x21c5;</th>
+        <th style="cursor: pointer;" onclick="sortTable(2)">Last Name &#x21c5;</th>
         <th>Phone Number</th>
-        <th>Date Joined</th>
+        <th style="cursor: pointer;" onclick="sortTable(4)">Date Joined &#x21c5;</th>
       </tr>
       {% for pet_owner in pet_owner_list %}
         <tr>
@@ -55,4 +55,6 @@
   {% endif %}
 
   </div>
+  <script src="{% static 'js/sort-table.js' %}"></script>
+
 {% endblock %}
