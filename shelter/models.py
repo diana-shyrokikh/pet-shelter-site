@@ -83,6 +83,8 @@ class Pet(models.Model):
 
 
 class PetOwner(AbstractUser):
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
     phone_number = models.CharField(max_length=63, unique=True)
     email = models.EmailField(unique=True)
 
