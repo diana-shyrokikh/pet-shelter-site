@@ -11,7 +11,16 @@ from pet_shelter_site import settings
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=63, unique=True)
+    TYPES = [
+        ("Dog", "Dog"),
+        ("Cat", "Cat"),
+    ]
+    
+    name = models.CharField(
+        max_length=63, 
+        unique=True,
+        choices=TYPES
+    )
 
     class Meta:
         ordering = ["name"]
