@@ -75,7 +75,7 @@ class BreedCreateView(StaffUserRequiredMixin, generic.CreateView):
     model = Breed
     fields = "__all__"
     template_name = "shelter/breed_form.html"
-    success_url = reverse_lazy("shelter:cat-list")
+    success_url = reverse_lazy("shelter:breed-list")
 
 
 class CatListView(generic.ListView):
