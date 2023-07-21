@@ -7,8 +7,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from shelter.forms import CatForm, DogForm, PetOwnerCreationForm, PetOwnerUpdateForm, CatSearchForm, DogSearchForm, \
-    PetSearchForm
+from shelter.forms import (
+    CatForm,
+    DogForm,
+    PetOwnerCreationForm,
+    PetOwnerUpdateForm,
+    CatSearchForm,
+    DogSearchForm,
+    PetSearchForm,
+    PetOwnerSearchForm
+)
 from shelter.models import Pet, PetOwner
 
 
@@ -25,6 +33,7 @@ def index(request):
         "num_home_cats": num_home_cats
     }
     return render(request, "shelter/index.html", context=context)
+
 
 #add staffuser decorator
 def adopt_pet_to_user(request, pk):
@@ -109,7 +118,7 @@ class DogListView(generic.ListView):
         name = self.request.GET.get("name", "")
 
         if name:
-            context["search_form"] = CatSearchForm(initial={
+            context["search_form"] = DogSearchForm(initial={
                 "name": name,
             })
 
@@ -156,7 +165,7 @@ class PetListView(StaffUserRequiredMixin, generic.ListView):
         name = self.request.GET.get("name", "")
 
         if name:
-            context["search_form"] = CatSearchForm(initial={
+            context["search_form"] = PetSearchForm(initial={
                 "name": name,
             })
 
@@ -178,8 +187,29 @@ class PetOwnerListView(StaffUserRequiredMixin, generic.ListView):
     model = PetOwner
     template_name = "shelter/pet_owner_list.html"
     context_object_name = "pet_owner_list"
-    queryset = PetOwner.objects.order_by("-date_joined")
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PetOwnerListView, self).get_context_data(**kwargs)
+        last_name = self.request.GET.get("last_name", "")
+
+        if last_name:
+            context["search_form"] = PetOwnerSearchForm(initial={
+                "last_name": last_name,
+            })
+
+        return context
+
+    def get_queryset(self):
+        last_name = PetOwnerSearchForm(self.request.GET)
+        queryset = PetOwner.objects.order_by("-date_joined")
+
+        if last_name.is_valid():
+            return queryset.filter(
+                last_name__icontains=last_name.cleaned_data["last_name"]
+            )
+
+        return queryset
 
 
 class PetOwnerCreateView(StaffUserRequiredMixin, generic.CreateView):

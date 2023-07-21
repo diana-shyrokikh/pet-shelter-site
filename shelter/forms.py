@@ -58,6 +58,7 @@ class PetSearchForm(forms.Form):
         widget=forms.TextInput()
     )
 
+
 class PetOwnerCreationForm(UserCreationForm):
     class Meta:
         model = PetOwner
@@ -73,3 +74,12 @@ class PetOwnerUpdateForm(forms.ModelForm):
     class Meta:
         model = PetOwner
         fields = ("email", "phone_number")
+
+
+class PetOwnerSearchForm(forms.Form):
+    last_name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput()
+    )
