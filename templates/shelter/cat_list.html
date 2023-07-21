@@ -22,12 +22,12 @@
         </p>
       </form>
     </div>
-    <table class="w3-table-all w3-centered" style="font-size: 16px">
+    <table id="Table" class="w3-table-all w3-centered" style="font-size: 16px">
       <tr>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Breed</th>
-        <th>Age</th>
+        <th style="cursor: pointer;" onclick="sortTable(0)">Name &#x21c5;</th>
+        <th style="cursor: pointer;" onclick="sortTable(1)">Gender &#x21c5;</th>
+        <th style="cursor: pointer;" onclick="sortTable(2)">Breed &#x21c5;</th>
+        <th style="cursor: pointer;" onclick="sortTable(3)">Age &#x21c5;</th>
         <th>Photo</th>
       </tr>
       {% for cat in cat_list %}
@@ -70,4 +70,6 @@
   {% endif %}
 
   </div>
+  <script src="{% static 'js/sort-table.js' %}"></script>
+
 {% endblock %}
