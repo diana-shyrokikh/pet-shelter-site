@@ -37,31 +37,31 @@
                 <b>{{ cat.name }}</b>
               </a>
             </td>
-          <td style="vertical-align: middle;">{{ cat.gender }}</td>
-          <td style="vertical-align: middle;">
-            {% if cat.breed.name %}
-              {{ cat.breed.name }}
-            {% else %}
-              unknown
-            {% endif %}
-          </td>
-          <td style="vertical-align: middle;">
-            {% if cat.age %}
-              {{ cat.age }} year{{ cat.age|pluralize }}
-            {% else %}
-              unknown
-            {% endif %}
-          </td>
-          <td>
-            <a href="{% url 'shelter:pet-detail' pk=cat.id %}">
-              {% if cat.photo %}
-                <img src="{{ cat.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Cat Photo">
+            <td style="vertical-align: middle;">{{ cat.gender }}</td>
+            <td style="vertical-align: middle;">
+              {% if cat.breed.name %}
+                {{ cat.breed.name }}
               {% else %}
-                <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
+                unknown
               {% endif %}
-            </a>
-          </td>
-        </tr>
+            </td>
+            <td style="vertical-align: middle;">
+              {% if cat.age %}
+                {{ cat.age }} year{{ cat.age|pluralize }}
+              {% else %}
+                unknown
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'shelter:pet-detail' pk=cat.id %}">
+                {% if cat.photo %}
+                  <img src="{{ cat.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Cat Photo">
+                {% else %}
+                  <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
+                {% endif %}
+              </a>
+            </td>
+          </tr>
         {% endfor %}
       </table>
 
