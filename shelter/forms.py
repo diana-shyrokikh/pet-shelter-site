@@ -9,6 +9,9 @@ class CatForm(forms.ModelForm):
         queryset=Breed.objects.filter(type__name="Cat"),
         required=False
     )
+    type = forms.ModelChoiceField(
+        queryset=Type.objects.filter(name="Cat"),
+    )
 
     class Meta:
         model = Pet
