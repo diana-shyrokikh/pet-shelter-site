@@ -41,6 +41,14 @@ class DogForm(forms.ModelForm):
         fields = "__all__"
 
 
+class DogSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput()
+    )
+
 class PetOwnerCreationForm(UserCreationForm):
     class Meta:
         model = PetOwner

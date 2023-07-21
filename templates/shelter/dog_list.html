@@ -10,6 +10,11 @@
   <div class="w3-container">
   <h2 class="w3-center">Dog List</h2>
   {% if dog_list %}
+      <form action="" method="get" class="form-inline">
+         <p class="w3-row w3-center">
+            <input class="w3-input w3-border w3-sand w3-round-xxlarge w3-third w3-left w3-center" name="name"  type="search" placeholder="Search by name" value="{{ search_form.name.value }}"/>
+         </p>
+      </form>
   <table class="w3-table-all w3-centered" style="font-size: 16px">
     <tr>
       <th>Name</th>
