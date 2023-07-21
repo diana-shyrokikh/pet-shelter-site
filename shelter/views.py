@@ -8,6 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 from shelter.forms import (
+    BreedSearchForm,
     CatForm,
     DogForm,
     PetOwnerCreationForm,
@@ -15,9 +16,9 @@ from shelter.forms import (
     CatSearchForm,
     DogSearchForm,
     PetSearchForm,
-    PetOwnerSearchForm
+    PetOwnerSearchForm,
 )
-from shelter.models import Pet, PetOwner, Breed
+from shelter.models import Breed, Pet, PetOwner
 
 
 def index(request):
@@ -69,6 +70,30 @@ class BreedListView(generic.ListView):
     model = Breed
     context_object_name = "breed_list"
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(BreedListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+
+        if name:
+            context["search_form"] = BreedSearchForm(initial={
+                "name": name,
+            })
+
+        return context
+
+    def get_queryset(self):
+        name = BreedSearchForm(self.request.GET)
+        queryset = Breed.objects.select_related("type")
+
+        name.is_valid()
+
+        if name.cleaned_data["name"]:
+            return queryset.filter(
+                name__icontains=name.cleaned_data["name"]
+            )
+
+        return queryset
 
 
 class BreedCreateView(StaffUserRequiredMixin, generic.CreateView):

@@ -4,6 +4,15 @@ from django.contrib.auth.forms import UserCreationForm
 from shelter.models import Pet, Breed, PetOwner, Type
 
 
+class BreedSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput()
+    )
+
+
 class CatForm(forms.ModelForm):
     breed = forms.ModelChoiceField(
         queryset=Breed.objects.filter(type__name="Cat"),
