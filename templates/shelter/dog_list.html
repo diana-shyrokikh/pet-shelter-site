@@ -24,37 +24,37 @@
           <th>Photo</th>
         </tr>
         {% for dog in dog_list %}
-        <tr>
-          <td style="vertical-align: middle;">
-            <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
-              <b>{{ dog.name }}</b>
-            </a>
-          </td>
-          <td style="vertical-align: middle;">{{ dog.gender }}</td>
-          <td style="vertical-align: middle;">
-            {% if dog.breed.name %}
-              {{ dog.breed.name }}
-            {% else %}
-              unknown
-            {% endif %}
-          </td>
-          <td style="vertical-align: middle;">
-            {% if dog.age %}
-              {{ dog.age }} year{{ dog.age|pluralize }}
-            {% else %}
-              unknown
-            {% endif %}
-          </td>
-          <td>
-            <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
-              {% if dog.photo %}
-                <img src="{{ dog.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Dog Photo">
+          <tr>
+            <td style="vertical-align: middle;">
+              <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
+                <b>{{ dog.name }}</b>
+              </a>
+            </td>
+            <td style="vertical-align: middle;">{{ dog.gender }}</td>
+            <td style="vertical-align: middle;">
+              {% if dog.breed.name %}
+                {{ dog.breed.name }}
               {% else %}
-                <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
+                unknown
               {% endif %}
-            </a>
-          </td>
-        </tr>
+            </td>
+            <td style="vertical-align: middle;">
+              {% if dog.age %}
+                {{ dog.age }} year{{ dog.age|pluralize }}
+              {% else %}
+                unknown
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
+                {% if dog.photo %}
+                  <img src="{{ dog.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Dog Photo">
+                {% else %}
+                  <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
+                {% endif %}
+              </a>
+            </td>
+          </tr>
         {% endfor %}
       </table>
 
