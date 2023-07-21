@@ -237,9 +237,19 @@ class PetOwnerListView(StaffUserRequiredMixin, generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PetOwnerListView, self).get_context_data(**kwargs)
+        username = self.request.GET.get("username", "")
+        first_name = self.request.GET.get("first_name", "")
         last_name = self.request.GET.get("last_name", "")
 
-        if last_name:
+        if username:
+            context["search_form"] = PetOwnerSearchForm(initial={
+                "username": username,
+            })
+        elif first_name:
+            context["search_form"] = PetOwnerSearchForm(initial={
+                "first_name": first_name,
+            })
+        elif last_name:
             context["search_form"] = PetOwnerSearchForm(initial={
                 "last_name": last_name,
             })
@@ -247,10 +257,24 @@ class PetOwnerListView(StaffUserRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
+        username = PetOwnerSearchForm(self.request.GET)
+        first_name = PetOwnerSearchForm(self.request.GET)
         last_name = PetOwnerSearchForm(self.request.GET)
-        queryset = PetOwner.objects.order_by("-date_joined")
+        queryset = PetOwner.objects.order_by("date_joined")
 
-        if last_name.is_valid():
+        username.is_valid()
+        first_name.is_valid()
+        last_name.is_valid()
+
+        if username.cleaned_data["username"]:
+            return queryset.filter(
+                username__icontains=username.cleaned_data["username"]
+            )
+        elif first_name.cleaned_data["first_name"]:
+            return queryset.filter(
+                first_name__icontains=first_name.cleaned_data["first_name"]
+            )
+        elif last_name.cleaned_data["last_name"]:
             return queryset.filter(
                 last_name__icontains=last_name.cleaned_data["last_name"]
             )

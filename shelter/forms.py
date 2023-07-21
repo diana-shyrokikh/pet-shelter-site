@@ -89,7 +89,19 @@ class PetOwnerUpdateForm(forms.ModelForm):
 
 
 class PetOwnerSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput()
+    )
     last_name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput()
+    )
+    first_name = forms.CharField(
         max_length=255,
         required=False,
         label="",
