@@ -209,21 +209,34 @@ class PetListView(StaffUserRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PetListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
+        breed = self.request.GET.get("breed", "")
 
         if name:
             context["search_form"] = PetSearchForm(initial={
                 "name": name,
+            })
+        elif breed:
+            context["search_form"] = PetSearchForm(initial={
+                "breed": breed,
             })
 
         return context
 
     def get_queryset(self):
         name = PetSearchForm(self.request.GET)
-        queryset = Pet.objects.select_related("type", "breed", "pet_owner").order_by("arrived_at")
+        breed = PetSearchForm(self.request.GET)
+        queryset = Pet.objects.select_related("type", "breed").order_by("arrived_at")
 
-        if name.is_valid():
+        name.is_valid()
+        breed.is_valid()
+
+        if name.cleaned_data["name"]:
             return queryset.filter(
                 name__icontains=name.cleaned_data["name"]
+            )
+        elif breed.cleaned_data["breed"]:
+            return queryset.filter(
+                breed__name__icontains=breed.cleaned_data["breed"]
             )
 
         return queryset
