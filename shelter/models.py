@@ -83,7 +83,8 @@ class Pet(models.Model):
 
 
 class PetOwner(AbstractUser):
-    phone_number = models.CharField(max_length=63)
+    phone_number = models.CharField(max_length=63, unique=True)
+    email = models.EmailField(unique=True)
 
     class Meta:
         verbose_name = "pet owner"
