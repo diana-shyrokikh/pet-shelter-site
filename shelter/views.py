@@ -74,21 +74,36 @@ class CatListView(generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CatListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
+        breed = self.request.GET.get("breed", "")
 
         if name:
             context["search_form"] = CatSearchForm(initial={
                 "name": name,
+            })
+        elif breed:
+            context["search_form"] = CatSearchForm(initial={
+                "breed": breed,
             })
 
         return context
 
     def get_queryset(self):
         name = CatSearchForm(self.request.GET)
+        breed = CatSearchForm(self.request.GET)
         queryset = Pet.objects.filter(type__name="Cat", left_at__isnull=True).order_by("arrived_at")
-
-        if name.is_valid():
+        name.is_valid()
+        print(name.cleaned_data["name"])
+        breed.is_valid()
+        print(breed.cleaned_data["breed"])
+        if name.cleaned_data["name"]:
+            print("name")
             return queryset.filter(
                 name__icontains=name.cleaned_data["name"]
+            )
+        elif breed.cleaned_data["breed"]:
+            print("breed")
+            return queryset.filter(
+                breed__name__icontains=breed.cleaned_data["breed"]
             )
 
         return queryset
