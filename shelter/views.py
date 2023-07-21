@@ -2,6 +2,7 @@ from datetime import date
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import AccessMixin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -36,7 +37,7 @@ def index(request):
     return render(request, "shelter/index.html", context=context)
 
 
-#add staffuser decorator
+@staff_member_required
 def adopt_pet_to_user(request, pk):
     pet = get_object_or_404(Pet, pk=pk)
     username = request.POST.get("username")
