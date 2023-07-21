@@ -1,5 +1,7 @@
+from typing import re
+
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import models
 
 
@@ -41,6 +43,7 @@ class Pet(models.Model):
         ("Female", "Female"),
         ("Male", "Male"),
     ]
+
     name = models.CharField(max_length=255)
     gender = models.CharField(max_length=63, choices=GENDERS)
     type = models.ForeignKey(
@@ -83,9 +86,51 @@ class Pet(models.Model):
 
 
 class PetOwner(AbstractUser):
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    phone_number = models.CharField(max_length=63, unique=True)
+    USERNAME_PATTERN = r"^[a-z\d_]+$"
+    NAME_PATTERN = r"^[A-Za-z]+$"
+    PHONE_NUMBER_PATTERN = r"^[\d\s()+]+$"
+
+    username = models.CharField(
+        max_length=50,
+        unique=True,
+        validators=[
+            RegexValidator(
+                regex=USERNAME_PATTERN,
+                message="The value must consist of a-z, digits and _ only"
+            )
+        ],
+    )
+    first_name = models.CharField(
+        max_length=150,
+        validators=[
+            RegexValidator(
+                regex=NAME_PATTERN,
+                message="The value must consist of A-z and a-z only"
+            )
+        ],
+    )
+    last_name = models.CharField(
+        max_length=150,
+        validators=[
+            RegexValidator(
+                regex=NAME_PATTERN,
+                message="The value should consist of A-z and a-z only"
+            )
+        ],
+    )
+    phone_number = models.CharField(
+        max_length=63,
+        unique=True,
+        validators=[
+            RegexValidator(
+                regex=PHONE_NUMBER_PATTERN,
+                message=(
+                    "The value must consist of numbers and "
+                    "allows parentheses with spaces and +"
+                )
+            )
+        ],
+    )
     email = models.EmailField(unique=True)
 
     class Meta:
