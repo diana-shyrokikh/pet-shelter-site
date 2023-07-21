@@ -17,7 +17,7 @@ from shelter.forms import (
     PetSearchForm,
     PetOwnerSearchForm
 )
-from shelter.models import Pet, PetOwner
+from shelter.models import Pet, PetOwner, Breed
 
 
 def index(request):
@@ -63,6 +63,19 @@ class StaffUserRequiredMixin(AccessMixin):
                 return redirect(reverse("shelter:index"))
 
         return super(StaffUserRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class BreedListView(generic.ListView):
+    model = Breed
+    context_object_name = "breed_list"
+    paginate_by = 5
+
+
+class BreedCreateView(StaffUserRequiredMixin, generic.CreateView):
+    model = Breed
+    fields = "__all__"
+    template_name = "shelter/breed_form.html"
+    success_url = reverse_lazy("shelter:cat-list")
 
 
 class CatListView(generic.ListView):

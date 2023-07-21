@@ -30,11 +30,18 @@ class Type(models.Model):
 
 
 class Breed(models.Model):
+    NAME_PATTERN = r"^[A-Za-z]+$"
+
     name = models.CharField(
         max_length=255,
-        blank=True,
-        null=True,
-        unique=True
+        unique=True,
+        default="unknown",
+        validators=[
+            RegexValidator(
+                regex=NAME_PATTERN,
+                message="The value must consist of A-z and a-z only"
+            )
+        ],
     )
     type = models.ForeignKey(
         to=Type,
