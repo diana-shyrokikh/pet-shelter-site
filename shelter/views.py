@@ -7,7 +7,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from shelter.forms import CatForm, DogForm, PetOwnerCreationForm, PetOwnerUpdateForm, CatSearchForm, DogSearchForm
+from shelter.forms import CatForm, DogForm, PetOwnerCreationForm, PetOwnerUpdateForm, CatSearchForm, DogSearchForm, \
+    PetSearchForm
 from shelter.models import Pet, PetOwner
 
 
@@ -74,7 +75,7 @@ class CatListView(generic.ListView):
 
     def get_queryset(self):
         name = CatSearchForm(self.request.GET)
-        queryset = Pet.objects.filter(type__name="Cat", left_at__isnull=True).order_by("-arrived_at")
+        queryset = Pet.objects.filter(type__name="Cat", left_at__isnull=True).order_by("arrived_at")
 
         if name.is_valid():
             return queryset.filter(
@@ -116,7 +117,7 @@ class DogListView(generic.ListView):
 
     def get_queryset(self):
         name = DogSearchForm(self.request.GET)
-        queryset = Pet.objects.filter(type__name="Dog", left_at__isnull=True).order_by("-arrived_at")
+        queryset = Pet.objects.filter(type__name="Dog", left_at__isnull=True).order_by("arrived_at")
 
         if name.is_valid():
             return queryset.filter(
@@ -148,8 +149,29 @@ class PetDetailView(generic.DetailView):
 
 class PetListView(StaffUserRequiredMixin, generic.ListView):
     model = Pet
-    queryset = Pet.objects.select_related("type", "breed", "pet_owner").order_by("-arrived_at")
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PetListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+
+        if name:
+            context["search_form"] = CatSearchForm(initial={
+                "name": name,
+            })
+
+        return context
+
+    def get_queryset(self):
+        name = PetSearchForm(self.request.GET)
+        queryset = Pet.objects.select_related("type", "breed", "pet_owner").order_by("arrived_at")
+
+        if name.is_valid():
+            return queryset.filter(
+                name__icontains=name.cleaned_data["name"]
+            )
+
+        return queryset
 
 
 class PetOwnerListView(StaffUserRequiredMixin, generic.ListView):

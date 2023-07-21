@@ -15,48 +15,48 @@
             <input class="w3-input w3-border w3-sand w3-round-xxlarge w3-third w3-left w3-center" name="name"  type="search" placeholder="Search by name" value="{{ search_form.name.value }}"/>
          </p>
       </form>
-  <table class="w3-table-all w3-centered" style="font-size: 16px">
-    <tr>
-      <th>Name</th>
-      <th>Gender</th>
-      <th>Breed</th>
-      <th>Age</th>
-      <th>Photo</th>
-    </tr>
-    {% for dog in dog_list %}
-    <tr>
-      <td style="vertical-align: middle;">
-        <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
-          <b>{{ dog.name }}</b>
-        </a>
-      </td>
-      <td style="vertical-align: middle;">{{ dog.gender }}</td>
-      <td style="vertical-align: middle;">
-        {% if dog.breed.name %}
-          {{ dog.breed.name }}
-        {% else %}
-          unknown
-        {% endif %}
-      </td>
-      <td style="vertical-align: middle;">
-        {% if dog.age %}
-          {{ dog.age }} year{{ dog.age|pluralize }}
-        {% else %}
-          unknown
-        {% endif %}
-      </td>
-      <td>
-        <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
-          {% if dog.photo %}
-            <img src="{{ dog.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Dog Photo">
-          {% else %}
-            <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
-          {% endif %}
-        </a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+      <table class="w3-table-all w3-centered" style="font-size: 16px">
+        <tr>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Breed</th>
+          <th>Age</th>
+          <th>Photo</th>
+        </tr>
+        {% for dog in dog_list %}
+        <tr>
+          <td style="vertical-align: middle;">
+            <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
+              <b>{{ dog.name }}</b>
+            </a>
+          </td>
+          <td style="vertical-align: middle;">{{ dog.gender }}</td>
+          <td style="vertical-align: middle;">
+            {% if dog.breed.name %}
+              {{ dog.breed.name }}
+            {% else %}
+              unknown
+            {% endif %}
+          </td>
+          <td style="vertical-align: middle;">
+            {% if dog.age %}
+              {{ dog.age }} year{{ dog.age|pluralize }}
+            {% else %}
+              unknown
+            {% endif %}
+          </td>
+          <td>
+            <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
+              {% if dog.photo %}
+                <img src="{{ dog.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Dog Photo">
+              {% else %}
+                <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
+              {% endif %}
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
 
   {% else %}
     <h2 class="w3-center">All our dogs found family!</h2>
