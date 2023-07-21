@@ -91,17 +91,15 @@ class CatListView(generic.ListView):
         name = CatSearchForm(self.request.GET)
         breed = CatSearchForm(self.request.GET)
         queryset = Pet.objects.filter(type__name="Cat", left_at__isnull=True).order_by("arrived_at")
+
         name.is_valid()
-        print(name.cleaned_data["name"])
         breed.is_valid()
-        print(breed.cleaned_data["breed"])
+
         if name.cleaned_data["name"]:
-            print("name")
             return queryset.filter(
                 name__icontains=name.cleaned_data["name"]
             )
         elif breed.cleaned_data["breed"]:
-            print("breed")
             return queryset.filter(
                 breed__name__icontains=breed.cleaned_data["breed"]
             )
