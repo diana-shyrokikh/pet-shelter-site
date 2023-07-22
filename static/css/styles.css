@@ -83,4 +83,26 @@ body {
     height: 100px;
 }
 
+.width-100 {
+    width:100%;
+}
 
+.radius {
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+}
+
+#bar-item {
+    width:25%;
+    font-size:20px;
+}
+
+.radius-40 {
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+
+.closed-tab {
+    width:100%;
+    display:none;
+}
