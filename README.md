@@ -8,6 +8,7 @@
 <img src="static/images/logo.svg" height="200">
 </div>
 
+<br>
 
 > Let's give a shelter pet a second chance to find a family!
 
@@ -78,7 +79,7 @@ You can check the installation instructions [here for Python](https://www.python
 
 1. Clone the project:
 ```
-git clonehttps://github.com/diana-shyrokikh/pet-shelter-site.git
+git clone https://github.com/diana-shyrokikh/pet-shelter-site.git
 ```
 2. Navigate to the project directory:
 ```
