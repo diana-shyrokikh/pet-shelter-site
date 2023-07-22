@@ -5,7 +5,7 @@ body {
 }
 
 .index-content {
-    flex: 1
+    flex: 1;
 }
 
 .div-footer {
@@ -32,5 +32,13 @@ body {
 }
 
 .pag-font-size {
-    font-size: 18px
+    font-size: 18px;
 }
+
+#mySidebar {
+    display:none;
+    font-size: 20px;
+    margin-left: -50px;
+    width: 300px;
+}
+
