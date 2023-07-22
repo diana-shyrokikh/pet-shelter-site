@@ -6,67 +6,113 @@
 {% endblock %}
 
 {% block content %}
+
   <div class="w3-container">
-    <div class="w3-container w3-black w3-round-xxlarge" style="margin:30px 100px 30px 100px">
-      <h2 class="w3-text-yellow w3-center">Pet List</h2>
+    <div class="w3-container w3-black w3-round-xxlarge list-title">
+      <h2 class="w3-text-yellow w3-center">
+        Pet List
+      </h2>
     </div>
     {% if pet_list %}
       <div class="w3-row">
-        <form action="" method="get" class="w3-half w3-padding">
+        <form
+            action=""
+            method="get"
+            class="w3-half w3-padding"
+        >
           <p class="w3-row w3-center">
-            <input class="w3-input w3-border w3-sand w3-round-xxlarge w3-center w3-margin" name="name"  type="search" placeholder="Search by name" value="{{ search_form.name.value }}"/>
+            <input
+                class="w3-input w3-border w3-sand
+                       w3-round-xxlarge w3-center w3-margin"
+                name="name"
+                type="search"
+                placeholder="Search by name"
+                value="{{ search_form.name.value }}"
+            />
           </p>
         </form>
-        <form action="" method="get" class="w3-half w3-padding">
+        <form
+            action=""
+            method="get"
+            class="w3-half w3-padding"
+        >
           <p class="w3-row w3-center">
-            <input class="w3-input w3-border w3-sand w3-round-xxlarge w3-center w3-margin" name="breed"  type="search" placeholder="Search by breed" value="{{ search_form.breed.value }}"/>
+            <input
+                class="w3-input w3-border w3-sand
+                       w3-round-xxlarge w3-center w3-margin"
+                name="breed"
+                type="search"
+                placeholder="Search by breed"
+                value="{{ search_form.breed.value }}"
+            />
           </p>
         </form>
       </div>
-      <table id="Table" class="w3-table w3-centered" style="font-size: 16px">
+      <table id="Table" class="w3-table w3-centered">
         <tr>
-          <th>ID</th>
-          <th style="cursor: pointer;" onclick="sortTable(1)">Name &#x21c5;</th>
-          <th style="cursor: pointer;" onclick="sortTable(2)">Type &#x21c5;</th>
-          <th style="cursor: pointer;" onclick="sortTable(3)">Gender &#x21c5;</th>
-          <th style="cursor: pointer;" onclick="sortTable(4)">Breed &#x21c5;</th>
+          <th
+              class="th-cursor"
+              onclick="sortTable(0)"
+          >
+            Name &#x21c5;
+          </th>
+          <th
+              class="th-cursor"
+              onclick="sortTable(1)"
+          >
+            Gender &#x21c5;
+          </th>
+          <th
+              class="th-cursor"
+              onclick="sortTable(2)"
+          >
+            Breed &#x21c5;
+          </th>
           <th>Age</th>
           <th>Photo</th>
         </tr>
         {% for pet in pet_list %}
-        <tr>
-          <td style="vertical-align: middle;">{{ pet.id }}</td>
-          <td style="vertical-align: middle;">
-            <a href="{% url 'shelter:pet-detail' pk=pet.id %}">
-              <b>{{ pet.name }}</b>
-            </a>
-          </td>
-          <td style="vertical-align: middle;">{{ pet.type }}</td>
-          <td style="vertical-align: middle;">{{ pet.gender }}</td>
-          <td style="vertical-align: middle;">
-            {% if pet.breed.name %}
-              {{ pet.breed.name }}
-            {% else %}
-              unknown
-            {% endif %}
-          </td>
-          <td style="vertical-align: middle;">
-            {% if pet.age %}
-              {{ pet.age }} year{{ pet.age|pluralize }}
-            {% else %}
-              unknown
-            {% endif %}
-          </td>
-          <td>
-            <a href="{% url 'shelter:pet-detail' pk=pet.id %}">
-              {% if pet.photo %}
-                <img src="{{ pet.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Pet Photo">
+          <tr>
+            <td id="td">
+              <a href="{% url 'shelter:pet-detail' pk=pet.id %}">
+                <b>{{ pet.name }}</b>
+              </a>
+            </td>
+            <td id="td">
+              {{ pet.gender }}
+            </td>
+            <td id="td">
+              {% if pet.breed.name %}
+                {{ pet.breed.name }}
               {% else %}
-                <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
+                unknown
               {% endif %}
-            </a>
-          </td>
-        </tr>
+            </td>
+            <td id="td">
+              {% if pet.age %}
+                {{ pet.age }} year{{ pet.age|pluralize }}
+              {% else %}
+                unknown
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'shelter:pet-detail' pk=pet.id %}">
+                {% if pet.photo %}
+                  <img
+                      src="{{ pet.photo.url }}"
+                      class="w3-round pet-photo"
+                      alt="pet Photo"
+                  >
+                {% else %}
+                  <img
+                      src="{% static 'images/coming_soon.png' %}"
+                      class="w3-round pet-photo"
+                      alt="Come Soon"
+                  >
+                {% endif %}
+              </a>
+            </td>
+          </tr>
         {% endfor %}
       </table>
 
@@ -74,12 +120,18 @@
       <div class="w3-container w3-center">
         <br>
         <hr>
-        <h2 class="w3-center">No pets have been found</h2>
+        <h2 class="w3-center">
+          No pets have been found
+        </h2>
         <hr>
         <br>
         <p class="w3-center">
-          <a href="{% url 'shelter:pet-list' %}" class="w3-btn w3-black w3-text-yellow w3-round-xxlarge w3-xlarge">
-          Return back
+          <a
+              href="{% url 'shelter:pet-list' %}"
+              class="w3-btn w3-black w3-text-yellow
+                     w3-round-xxlarge w3-xlarge"
+          >
+            Return back
           </a>
         </p>
       </div>
@@ -87,4 +139,5 @@
 
   </div>
   <script src="{% static 'js/sort-table.js' %}"></script>
+
 {% endblock %}
