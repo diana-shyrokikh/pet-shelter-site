@@ -7,7 +7,9 @@
 
 {% block content %}
   <div class="w3-container">
-    <h2 class="w3-center">Pet List</h2>
+    <div class="w3-container w3-black w3-round-xxlarge" style="margin:30px 100px 30px 100px">
+      <h2 class="w3-text-yellow w3-center">Pet List</h2>
+    </div>
     {% if pet_list %}
       <div class="w3-row">
         <form action="" method="get" class="w3-half w3-padding">
@@ -23,7 +25,7 @@
       </div>
       <table id="Table" class="w3-table w3-centered" style="font-size: 16px">
         <tr>
-          <th>ID;</th>
+          <th>ID</th>
           <th style="cursor: pointer;" onclick="sortTable(1)">Name &#x21c5;</th>
           <th style="cursor: pointer;" onclick="sortTable(2)">Type &#x21c5;</th>
           <th style="cursor: pointer;" onclick="sortTable(3)">Gender &#x21c5;</th>
