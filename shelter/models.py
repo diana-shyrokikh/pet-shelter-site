@@ -3,7 +3,10 @@ from typing import Any, Callable
 
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, RegexValidator
+from django.core.validators import (
+    MaxValueValidator,
+    RegexValidator
+)
 from django.db import models
 
 
@@ -15,9 +18,9 @@ class Type(models.Model):
         ("Dog", "Dog"),
         ("Cat", "Cat"),
     ]
-    
+
     name = models.CharField(
-        max_length=63, 
+        max_length=63,
         unique=True,
         choices=TYPES
     )

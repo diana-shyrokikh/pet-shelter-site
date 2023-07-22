@@ -23,10 +23,18 @@ from shelter.models import Breed, Pet, PetOwner
 
 
 def index(request):
-    num_shelter_cats = Pet.objects.filter(type__name="Cat", left_at=None).count()
-    num_shelter_dogs = Pet.objects.filter(type__name="Dog", left_at__isnull=True).count()
-    num_home_dogs = Pet.objects.filter(type__name="Dog", left_at__isnull=False).count()
-    num_home_cats = Pet.objects.filter(type__name="Cat", left_at__isnull=False).count()
+    num_shelter_cats = Pet.objects.filter(
+        type__name="Cat", left_at=None
+    ).count()
+    num_shelter_dogs = Pet.objects.filter(
+        type__name="Dog", left_at__isnull=True
+    ).count()
+    num_home_dogs = Pet.objects.filter(
+        type__name="Dog", left_at__isnull=False
+    ).count()
+    num_home_cats = Pet.objects.filter(
+        type__name="Cat", left_at__isnull=False
+    ).count()
 
     context = {
         "num_shelter_cats": num_shelter_cats,
@@ -64,7 +72,9 @@ class StaffUserRequiredMixin(AccessMixin):
             else:
                 return redirect(reverse("shelter:index"))
 
-        return super(StaffUserRequiredMixin, self).dispatch(request, *args, **kwargs)
+        return super(StaffUserRequiredMixin, self).dispatch(
+            request, *args, **kwargs
+        )
 
 
 class BreedListView(generic.ListView):
@@ -136,7 +146,9 @@ class CatListView(generic.ListView):
     def get_queryset(self):
         name = CatSearchForm(self.request.GET)
         breed = CatSearchForm(self.request.GET)
-        queryset = Pet.objects.filter(type__name="Cat", left_at__isnull=True).order_by("arrived_at")
+        queryset = Pet.objects.filter(
+            type__name="Cat", left_at__isnull=True
+        ).order_by("arrived_at")
 
         name.is_valid()
         breed.is_valid()
@@ -191,7 +203,9 @@ class DogListView(generic.ListView):
     def get_queryset(self):
         name = DogSearchForm(self.request.GET)
         breed = DogSearchForm(self.request.GET)
-        queryset = Pet.objects.filter(type__name="Dog", left_at__isnull=True).order_by("arrived_at")
+        queryset = Pet.objects.filter(
+            type__name="Dog", left_at__isnull=True
+        ).order_by("arrived_at")
 
         name.is_valid()
         breed.is_valid()
@@ -251,7 +265,9 @@ class PetListView(StaffUserRequiredMixin, generic.ListView):
     def get_queryset(self):
         name = PetSearchForm(self.request.GET)
         breed = PetSearchForm(self.request.GET)
-        queryset = Pet.objects.select_related("type", "breed").order_by("arrived_at")
+        queryset = Pet.objects.select_related(
+            "type", "breed"
+        ).order_by("arrived_at")
 
         name.is_valid()
         breed.is_valid()
