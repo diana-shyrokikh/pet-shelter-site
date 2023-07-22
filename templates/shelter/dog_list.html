@@ -8,67 +8,67 @@
 {% block content %}
 
   <div class="w3-container">
-  <h2 class="w3-center">Dog List</h2>
-  {% if dog_list %}
-    <div class="w3-row">
-      <form action="" method="get" class="w3-half w3-padding">
-         <p class="w3-row w3-center">
-            <input class="w3-input w3-border w3-sand w3-round-xxlarge w3-center w3-margin" name="name"  type="search" placeholder="Search by name" value="{{ search_form.name.value }}"/>
-         </p>
-      </form>
-      <form action="" method="get" class="w3-half w3-padding">
-         <p class="w3-row w3-center">
-            <input class="w3-input w3-border w3-sand w3-round-xxlarge w3-center w3-margin" name="breed"  type="search" placeholder="Search by breed" value="{{ search_form.breed.value }}"/>
-         </p>
-      </form>
+    <div class="w3-container w3-black w3-round-xxlarge" style="margin:30px 100px 30px 100px">
+      <h2 class="w3-text-yellow w3-center">Dog List</h2>
     </div>
-    <table id="Table" class="w3-table w3-centered" style="font-size: 16px">
-      <tr>
-        <th style="cursor: pointer;" onclick="sortTable(0)">Name &#x21c5;</th>
-        <th style="cursor: pointer;" onclick="sortTable(1)">Gender &#x21c5;</th>
-        <th style="cursor: pointer;" onclick="sortTable(2)">Breed &#x21c5;</th>
-        <th>Age</th>
-        <th>Photo</th>
-      </tr>
-      {% for dog in dog_list %}
+    {% if dog_list %}
+      <div class="w3-row">
+        <form action="" method="get" class="w3-half w3-padding">
+           <p class="w3-row w3-center">
+              <input class="w3-input w3-border w3-sand w3-round-xxlarge w3-center w3-margin" name="name"  type="search" placeholder="Search by name" value="{{ search_form.name.value }}"/>
+           </p>
+        </form>
+        <form action="" method="get" class="w3-half w3-padding">
+           <p class="w3-row w3-center">
+              <input class="w3-input w3-border w3-sand w3-round-xxlarge w3-center w3-margin" name="breed"  type="search" placeholder="Search by breed" value="{{ search_form.breed.value }}"/>
+           </p>
+        </form>
+      </div>
+      <table id="Table" class="w3-table w3-centered" style="font-size: 16px">
         <tr>
-          <td style="vertical-align: middle;">
-            <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
-              <b>{{ dog.name }}</b>
-            </a>
-          </td>
-          <td style="vertical-align: middle;">{{ dog.gender }}</td>
-          <td style="vertical-align: middle;">
-            {% if dog.breed.name %}
-              {{ dog.breed.name }}
-            {% else %}
-              unknown
-            {% endif %}
-          </td>
-          <td style="vertical-align: middle;">
-            {% if dog.age %}
-              {{ dog.age }} year{{ dog.age|pluralize }}
-            {% else %}
-              unknown
-            {% endif %}
-          </td>
-          <td>
-            <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
-              {% if dog.photo %}
-                <img src="{{ dog.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Dog Photo">
-              {% else %}
-                <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
-              {% endif %}
-            </a>
-          </td>
+          <th style="cursor: pointer;" onclick="sortTable(0)">Name &#x21c5;</th>
+          <th style="cursor: pointer;" onclick="sortTable(1)">Gender &#x21c5;</th>
+          <th style="cursor: pointer;" onclick="sortTable(2)">Breed &#x21c5;</th>
+          <th>Age</th>
+          <th>Photo</th>
         </tr>
-      {% endfor %}
-    </table>
-  {% else %}
-    <h2 class="w3-center">No dogs have been found</h2>
-  {% endif %}
-
+        {% for dog in dog_list %}
+          <tr>
+            <td style="vertical-align: middle;">
+              <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
+                <b>{{ dog.name }}</b>
+              </a>
+            </td>
+            <td style="vertical-align: middle;">{{ dog.gender }}</td>
+            <td style="vertical-align: middle;">
+              {% if dog.breed.name %}
+                {{ dog.breed.name }}
+              {% else %}
+                unknown
+              {% endif %}
+            </td>
+            <td style="vertical-align: middle;">
+              {% if dog.age %}
+                {{ dog.age }} year{{ dog.age|pluralize }}
+              {% else %}
+                unknown
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
+                {% if dog.photo %}
+                  <img src="{{ dog.photo.url }}" class="w3-round" style="width:100px; height: 100px" alt="Dog Photo">
+                {% else %}
+                  <img src="{% static 'images/coming_soon.png' %}" class="w3-round" style="width:100px; height: 100px" alt="Come Soon">
+                {% endif %}
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <h2 class="w3-center">No dogs have been found</h2>
+    {% endif %}
   </div>
   <script src="{% static 'js/sort-table.js' %}"></script>
-
 {% endblock %}
