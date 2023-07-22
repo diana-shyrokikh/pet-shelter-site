@@ -4,8 +4,8 @@
   <div class="pagination w3-center w3-bar w3-margin">
     {% if page_obj.has_previous %}
       <a
-        href="?{% query_transform request page=page_obj.previous_page_number%}"
-        class="w3-button pag-font-size"
+          href="?{% query_transform request page=page_obj.previous_page_number%}"
+          class="w3-button pag-font-size"
       >
         &laquo;
       </a>
@@ -19,8 +19,8 @@
 
     {% if page_obj.has_next %}
       <a
-        href="?{% query_transform request page=page_obj.next_page_number%}"
-        class="w3-button pag-font-size"
+          href="?{% query_transform request page=page_obj.next_page_number%}"
+          class="w3-button pag-font-size"
       >
         &raquo;
       </a>

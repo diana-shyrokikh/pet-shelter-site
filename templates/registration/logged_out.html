@@ -7,7 +7,9 @@
 
 {% block content %}
   <div class="w3-display-container field-height">
-    <div class="w3-card-4 w3-margin w3-round-xxlarge w3-half w3-display-topmiddle">
+    <div
+        class="w3-card-4 w3-margin w3-round-xxlarge
+               w3-half w3-display-topmiddle">
       <div class="w3-container w3-black w3-round-xxlarge">
         <h2 class="w3-text-yellow w3-center">
           You are logged out
@@ -26,8 +28,8 @@
         <br>
         <p class="w3-center">
           <a
-            href="{% url 'shelter:login' %}"
-            class="w3-btn w3-black w3-text-yellow w3-round-xxlarge w3-xlarge"
+              href="{% url 'shelter:login' %}"
+              class="w3-btn w3-black w3-text-yellow w3-round-xxlarge w3-xlarge"
           >
             Click here to login
           </a>

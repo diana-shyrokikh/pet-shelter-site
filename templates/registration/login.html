@@ -7,7 +7,9 @@
 
 {% block content %}
   <div class="w3-display-container field-height">
-    <div class="w3-card-4 w3-margin w3-round-xxlarge w3-half w3-display-topmiddle">
+    <div
+        class="w3-card-4 w3-margin w3-round-xxlarge
+               w3-half w3-display-topmiddle">
       <div class="w3-container w3-black w3-round-xxlarge">
         <h2 class="w3-text-yellow w3-center">
           Login
@@ -22,9 +24,9 @@
       {% endif %}
 
       <form
-        class="w3-container w3-padding"
-        method="post"
-        action="{% url 'shelter:login' %}"
+          class="w3-container w3-padding"
+          method="post"
+          action="{% url 'shelter:login' %}"
       >
         {% csrf_token %}
         <p>
@@ -32,9 +34,10 @@
             <b>Login</b>
           </label>
           <input
-            class="w3-input w3-border w3-sand w3-round-xxlarge w3-padding"
-            name="username"
-            type="text"
+              class="w3-input w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
+              name="username"
+              type="text"
           >
         </p>
         <p>
@@ -42,16 +45,17 @@
             <b>Password</b>
           </label>
           <input
-            class="w3-input w3-border w3-sand w3-round-xxlarge w3-padding"
-            name="password"
-            type="password">
+              class="w3-input w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
+              name="password"
+              type="password">
         </p>
         <p class="w3-center">
           <br>
           <button
-            class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
-            type="submit"
-            value="login"
+              class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
+              type="submit"
+              value="login"
           >
             Submit
           </button>
