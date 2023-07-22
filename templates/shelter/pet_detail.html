@@ -120,22 +120,25 @@
           <br>
         </div>
       </div>
-      <div class="w3-container">
-        {% if pet_detail.type.name == "Dog"  %}
-          <a
-              href="{% url 'shelter:dog-update' pk=object.id %}"
-              class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
-          >
-            <b>Update Info</b>
-          </a>
-        {% else %}
-          <a
-              href="{% url 'shelter:cat-update' pk=object.id %}"
-              class="w3-btn w3-black w3-text-yellow w3-round-xxlarge">
-            <b>Update Info</b>
-          </a>
-        {% endif %}
-      </div>
+      {% if user.is_authenticated %}
+        <div class="w3-container">
+          {% if pet_detail.type.name == "Dog"  %}
+            <a
+                href="{% url 'shelter:dog-update' pk=object.id %}"
+                class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
+            >
+              <b>Update Info</b>
+            </a>
+          {% else %}
+            <a
+                href="{% url 'shelter:cat-update' pk=object.id %}"
+                class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
+            >
+              <b>Update Info</b>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
   </div>
 
