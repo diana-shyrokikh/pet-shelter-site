@@ -73,24 +73,22 @@
         </tr>
         {% for cat in cat_list %}
           <tr>
-            <td class="td-vertical-aligh">
+            <td id="td">
               <a href="{% url 'shelter:pet-detail' pk=cat.id %}">
                 <b>{{ cat.name }}</b>
               </a>
             </td>
-            <td class="td-vertical-aligh">
+            <td id="td">
               {{ cat.gender }}
             </td>
-            <td class="td-vertical-aligh"
-            >
+            <td id="td">
               {% if cat.breed.name %}
                 {{ cat.breed.name }}
               {% else %}
                 unknown
               {% endif %}
             </td>
-            <td class="td-vertical-aligh"
-            >
+            <td id="td">
               {% if cat.age %}
                 {{ cat.age }} year{{ cat.age|pluralize }}
               {% else %}
