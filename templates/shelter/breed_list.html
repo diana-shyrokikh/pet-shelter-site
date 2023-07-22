@@ -52,13 +52,13 @@
         </tr>
         {% for breed in breed_list %}
           <tr>
-            <td class="td-vertical-aligh">
+            <td id="td">
               <b>{{ breed.name }}</b>
             </td>
-          <td class="td-vertical-aligh">
+          <td id="td">
             {{ breed.type }}
           </td>
-          <td class="td-vertical-aligh">
+          <td id="td">
             <a href="{% url 'shelter:breed-update' pk=breed.id %}">
               UPDATE
             </a>
