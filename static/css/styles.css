@@ -110,3 +110,11 @@ body {
 .width-30 {
     width:30%;
 }
+
+#create-user {
+    height: 670px;
+}
+
+#update-user {
+    height: 250px;
+}
