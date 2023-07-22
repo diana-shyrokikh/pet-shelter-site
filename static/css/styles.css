@@ -66,3 +66,15 @@ body {
     vertical-align: middle;
 }
 
+.pet-form-height {
+    height: 750px
+}
+
+#description {
+    resize: none;
+}
+
+#photo {
+    display: none;
+}
+
