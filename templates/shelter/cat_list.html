@@ -68,7 +68,18 @@
       </table>
 
     {% else %}
-      <h2 class="w3-center">No cats have been found</h2>
+      <div class="w3-container w3-center">
+        <br>
+        <hr>
+        <h2 class="w3-center">No cats have been found</h2>
+        <hr>
+        <br>
+        <p class="w3-center">
+          <a href="{% url 'shelter:cat-list' %}" class="w3-btn w3-black w3-text-yellow w3-round-xxlarge w3-xlarge">
+          Return back
+          </a>
+        </p>
+      </div>
     {% endif %}
 
   </div>
