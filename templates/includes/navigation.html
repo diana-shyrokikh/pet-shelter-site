@@ -2,6 +2,10 @@
 
 <div>
   <div class="w3-bar w3-black w3-round-xxlarge" style="padding-top: 30px; margin-top: -35px;">
+    <div
+      class="w3-bar-item w3-mobile w3-button w3-text-yellow w3-padding-16 w3-hover-none w3-hover-text-white">
+        <img src="{% static 'images/logo.svg' %}" alt="Logo">
+    </div>
     {% if user.is_staff%}
       <a
         id="openNav"
