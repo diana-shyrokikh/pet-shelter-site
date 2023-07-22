@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="w3-display-container" style="height: 1000px">
+  <div class="w3-display-container" style="height: 250px">
     <div class="w3-card-4 w3-margin w3-round-xxlarge w3-half w3-display-topmiddle">
       <div class="w3-container w3-black w3-round-xxlarge">
         <h2 class="w3-text-yellow w3-center">{{ object|yesno:"Update, Add" }} Breed</h2>
@@ -14,14 +14,14 @@
         {% csrf_token %}
         <p>
           <label for="name" class="w3-text-black w3-padding"><b>Name: *</b></label>
-          <input id="name" class="w3-input w3-border w3-sand w3-round-xxlarge" name="name" type="text" {% if object %} value="{{ object.name }}" {% endif %} required>
+          <input id="name" class="w3-input w3-border w3-sand w3-round-xxlarge w3-padding" name="name" type="text" {% if object %} value="{{ object.name }}" {% endif %} required>
           {% if form.errors.name %}
             {{ form.errors.name }}
           {% endif %}
         </p>
         <p>
           <label for="type" class="w3-text-black w3-padding"><b>Type: *</b></label>
-          <select id="type" class="w3-select w3-border w3-sand w3-round-xxlarge" name="type">
+          <select id="type" class="w3-select w3-border w3-sand w3-round-xxlarge w3-padding" name="type">
             <option value="" disabled selected>Choose type</option>
             {% if form.type %}
               {% for type in form.type %}
