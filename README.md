@@ -18,9 +18,9 @@
 - [Technologies](#technologies)
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
-- [Usage](#usage)
-- [Shutdown](#shutdown)
 - [Accessing the Application](#accessing-the-application)
+- [Shutdown](#shutdown)
+
 
 <hr>
 
