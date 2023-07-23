@@ -115,20 +115,18 @@ class BreedListView(generic.ListView):
         return context
 
     def get_queryset(self):
-        name = BreedSearchForm(self.request.GET)
-        type_ = BreedSearchForm(self.request.GET)
+        form = BreedSearchForm(self.request.GET)
         queryset = Breed.objects.select_related("type")
 
-        name.is_valid()
-        type_.is_valid()
+        form.is_valid()
 
-        if name.cleaned_data["name"]:
+        if form.cleaned_data["name"]:
             return queryset.filter(
-                name__icontains=name.cleaned_data["name"]
+                name__icontains=form.cleaned_data["name"]
             )
-        elif type_.cleaned_data["type"]:
+        elif form.cleaned_data["type"]:
             return queryset.filter(
-                type__name__icontains=name.cleaned_data["type"]
+                type__name__icontains=form.cleaned_data["type"]
             )
 
         return queryset
@@ -176,28 +174,24 @@ class CatListView(generic.ListView):
         return context
 
     def get_queryset(self):
-        name = CatSearchForm(self.request.GET)
-        breed = CatSearchForm(self.request.GET)
-        gender = CatSearchForm(self.request.GET)
+        form = CatSearchForm(self.request.GET)
         queryset = Pet.objects.filter(
             type__name="Cat", left_at__isnull=True
         ).order_by("arrived_at")
 
-        name.is_valid()
-        breed.is_valid()
-        gender.is_valid()
+        form.is_valid()
 
-        if name.cleaned_data["name"]:
+        if form.cleaned_data["name"]:
             return queryset.filter(
-                name__icontains=name.cleaned_data["name"]
+                name__icontains=form.cleaned_data["name"]
             )
-        elif breed.cleaned_data["breed"]:
+        elif form.cleaned_data["breed"]:
             return queryset.filter(
-                breed__name__icontains=breed.cleaned_data["breed"]
+                breed__name__icontains=form.cleaned_data["breed"]
             )
-        elif gender.cleaned_data["gender"]:
+        elif form.cleaned_data["gender"]:
             return queryset.filter(
-                gender__icontains=breed.cleaned_data["gender"]
+                gender__icontains=form.cleaned_data["gender"]
             )
 
         return queryset
@@ -226,6 +220,7 @@ class DogListView(generic.ListView):
         context = super(DogListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
         breed = self.request.GET.get("breed", "")
+        gender = self.request.GET.get("gender", "")
 
         if name:
             context["search_form"] = CatSearchForm(initial={
@@ -235,26 +230,33 @@ class DogListView(generic.ListView):
             context["search_form"] = CatSearchForm(initial={
                 "breed": breed,
             })
+        elif gender:
+            context["search_form"] = CatSearchForm(initial={
+                "gender": gender,
+            })
 
         return context
 
     def get_queryset(self):
-        name = DogSearchForm(self.request.GET)
-        breed = DogSearchForm(self.request.GET)
+        form = DogSearchForm(self.request.GET)
+
         queryset = Pet.objects.filter(
             type__name="Dog", left_at__isnull=True
         ).order_by("arrived_at")
 
-        name.is_valid()
-        breed.is_valid()
+        form.is_valid()
 
-        if name.cleaned_data["name"]:
+        if form.cleaned_data["name"]:
             return queryset.filter(
-                name__icontains=name.cleaned_data["name"]
+                name__icontains=form.cleaned_data["name"]
             )
-        elif breed.cleaned_data["breed"]:
+        elif form.cleaned_data["breed"]:
             return queryset.filter(
-                breed__name__icontains=breed.cleaned_data["breed"]
+                breed__name__icontains=form.cleaned_data["breed"]
+            )
+        elif form.cleaned_data["gender"]:
+            return queryset.filter(
+                gender__icontains=form.cleaned_data["gender"]
             )
 
         return queryset
