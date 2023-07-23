@@ -2,20 +2,25 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from shelter.models import Type, Pet, Breed
-
-PK = "0"
+from shelter.models import Type, Pet
 
 ADOPT_PET = reverse("shelter:adopt-pet", args="1")
+
 BREED_CREATE = reverse("shelter:breed-create")
 BREED_UPDATE = reverse("shelter:breed-update", args="1")
+
 DOG_CREATE = reverse("shelter:dog-create")
 DOG_UPDATE = reverse("shelter:dog-update", args="1")
+
 CAT_CREATE = reverse("shelter:cat-create")
 CAT_UPDATE = reverse("shelter:cat-update", args="2")
+
 PET_LIST = reverse("shelter:pet-list")
 PET_OWNER_LIST = reverse("shelter:pet-owner-list")
+
 PET_OWNER_CREATE = reverse("shelter:pet-owner-create")
+PET_OWNER_DETAIL = reverse("shelter:pet-owner-detail", args="1")
+PET_OWNER_UPDATE = reverse("shelter:pet-owner-update", args="1")
 
 
 class PublicViewsTests(TestCase):
@@ -98,5 +103,35 @@ class PublicViewsTests(TestCase):
 
     def test_pet_owner_create_staff_required(self):
         response = self.client.get(PET_OWNER_CREATE)
+
+        self.assertNotEquals(response.status_code, 200)
+
+    def test_pet_owner_detail_right_id_required(self):
+        hacker = get_user_model().objects.create_user(
+            username="hacker",
+            password="usertest123456",
+            first_name="FirstName",
+            last_name="LastName",
+            email="test@hacker.com",
+            phone_number="3 80 88 898 88 89"
+        )
+
+        self.client.force_login(hacker)
+        response = self.client.get(PET_OWNER_DETAIL)
+
+        self.assertNotEquals(response.status_code, 200)
+
+    def test_pet_owner_update_right_id_required(self):
+        hacker = get_user_model().objects.create_user(
+            username="hacker",
+            password="usertest123456",
+            first_name="FirstName",
+            last_name="LastName",
+            email="test@hacker.com",
+            phone_number="3 80 88 898 88 89"
+        )
+
+        self.client.force_login(hacker)
+        response = self.client.get(PET_OWNER_UPDATE)
 
         self.assertNotEquals(response.status_code, 200)
