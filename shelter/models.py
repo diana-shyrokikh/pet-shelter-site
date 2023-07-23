@@ -33,7 +33,7 @@ class Type(models.Model):
 
 
 class Breed(models.Model):
-    NAME_PATTERN = r"^[A-Za-z]+$"
+    NAME_PATTERN = r"^[\sA-Za-z]+$"
 
     name = models.CharField(
         max_length=255,
@@ -60,7 +60,7 @@ class Breed(models.Model):
 
 
 class Pet(models.Model):
-    NAME_PATTERN = r"^[A-Za-z]+$"
+    NAME_PATTERN = r"^[\sA-Za-z]+$"
 
     GENDERS = [
         ("Female", "Female"),
