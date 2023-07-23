@@ -54,5 +54,6 @@ class ModelsTests(TestCase):
         self.assertEquals(new_pet_owner.phone_number, phone_number)
         self.assertEquals(
             str(new_pet_owner),
-            f"{new_pet_owner.username} ({new_pet_owner.first_name} {new_pet_owner.last_name})"
+            f"{new_pet_owner.username} "
+            f"({new_pet_owner.first_name} {new_pet_owner.last_name})"
         )
