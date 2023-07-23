@@ -30,8 +30,6 @@ class PetOwnerAdmin(UserAdmin):
 @admin.register(Type)
 class TypeAdmin(admin.ModelAdmin):
     list_display = ["name"]
-    search_fields = ["name"]
-    list_filter = ["name"]
 
 
 @admin.register(Breed)

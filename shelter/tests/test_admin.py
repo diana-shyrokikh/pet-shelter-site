@@ -25,9 +25,9 @@ class AdminSiteTests(TestCase):
             email="test@test.com",
             phone_number="3 80 88 888 88 89"
         )
-        # self.type = Type.objects.create(
-        #     name="Dog",
-        # )
+        self.type = Type.objects.create(
+            name="Dog",
+        )
         # self.breed = Breed.objects.create(
         #     name="dog breed",
         #     type=self.type
@@ -38,7 +38,6 @@ class AdminSiteTests(TestCase):
         response = self.client.get(url)
         self.assertContains(response, self.pet_owner.phone_number)
         self.assertContains(response, self.pet_owner.date_joined.date())
-
 
     def test_pet_owner_detailed_phone_number_listed(self):
         url = reverse(
@@ -83,3 +82,11 @@ class AdminSiteTests(TestCase):
         response = self.client.get(url)
 
         self.assertNotContains(response, "LastName")
+
+########
+    def test_type_name_listed(self):
+        url = reverse("admin:shelter_type_changelist")
+        response = self.client.get(url)
+        self.assertContains(response, self.type.name)
+
+#########
