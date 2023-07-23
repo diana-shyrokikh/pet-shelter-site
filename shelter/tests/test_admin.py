@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from shelter.models import Type, Breed
+from shelter.models import Type, Breed, Pet
 
 
 class AdminSiteTests(TestCase):
@@ -10,7 +10,7 @@ class AdminSiteTests(TestCase):
         self.admin_user = get_user_model().objects.create_superuser(
             username="admin",
             password="admin123456",
-            first_name="AdminfirstName",
+            first_name="AdminFirstName",
             last_name="AdminLastName",
             email="admintest@test.com",
             phone_number="3 80 88 888 88 88"
@@ -31,6 +31,15 @@ class AdminSiteTests(TestCase):
         self.breed = Breed.objects.create(
             name="DogTestBreed",
             type=self.type
+        )
+
+        self.pet = Pet.objects.create(
+            name="TestPet",
+            gender="Female",
+            type=self.type,
+            breed=self.breed,
+            age=1,
+            pet_owner=self.pet_owner
         )
 
     def test_pet_owner_additional_info_listed(self):
@@ -83,21 +92,26 @@ class AdminSiteTests(TestCase):
 
         self.assertNotContains(response, "LastName")
 
-########
     def test_type_name_listed(self):
         url = reverse("admin:shelter_type_changelist")
         response = self.client.get(url)
         self.assertContains(response, self.type.name)
 
-#########
-
     def test_breed_list_filter_by_type(self):
+        self.type_cat = Type.objects.create(
+            name="Cat",
+        )
+        self.breed = Breed.objects.create(
+            name="CatTestBreed",
+            type=self.type_cat
+        )
+
         url = reverse(
             "admin:shelter_breed_changelist",
         )
         response = self.client.get(url)
 
-        self.assertContains(response, "By date type")
+        self.assertContains(response, "By type")
 
     def test_breed_search_name(self):
         Breed.objects.create(
@@ -112,4 +126,56 @@ class AdminSiteTests(TestCase):
 
         self.assertNotContains(response, "DogTestBreed")
 
+    def test_pet_info_listed(self):
+        url = reverse("admin:shelter_pet_changelist")
+        response = self.client.get(url)
+        self.assertContains(response, self.pet.id)
+        self.assertContains(response, self.pet.name)
+        self.assertContains(response, self.pet.gender)
+        self.assertContains(response, self.pet.type)
+        self.assertContains(response, self.pet.breed)
+        self.assertContains(response, self.pet.age)
+        self.assertContains(response, self.pet.arrived_at)
+        self.assertContains(response, self.pet.pet_owner.username)
 
+    def test_pet_list_filter(self):
+        self.type_cat = Type.objects.create(
+            name="Cat",
+        )
+        self.breed_cat = Breed.objects.create(
+            name="CatTestBreed",
+            type=self.type_cat
+        )
+        self.pet = Pet.objects.create(
+            name="TestPetCat",
+            gender="Female",
+            type=self.type_cat,
+            breed=self.breed_cat,
+        )
+
+        url = reverse(
+            "admin:shelter_pet_changelist",
+        )
+        response = self.client.get(url)
+
+        self.assertContains(response, "By gender")
+        self.assertContains(response, "By type")
+        self.assertContains(response, "By breed")
+        self.assertContains(response, "By age")
+        self.assertContains(response, "By arrived at")
+        self.assertContains(response, "By left at")
+
+    def test_pet_search_name(self):
+        self.pet = Pet.objects.create(
+            name="PetTest",
+            gender="Female",
+            type=self.type,
+            breed=self.breed,
+        )
+
+        url = reverse(
+            "admin:shelter_pet_changelist",
+        ) + "?q=PetTest"
+        response = self.client.get(url)
+
+        self.assertNotContains(response, "TestPet")
