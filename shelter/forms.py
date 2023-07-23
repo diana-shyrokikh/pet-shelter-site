@@ -24,7 +24,7 @@ class CatForm(forms.ModelForm):
 
     class Meta:
         model = Pet
-        fields = "__all__"
+        exclude = ("pet_owner", "left_at")
 
 
 class CatSearchForm(forms.Form):
@@ -53,7 +53,7 @@ class DogForm(forms.ModelForm):
 
     class Meta:
         model = Pet
-        fields = "__all__"
+        exclude = ("pet_owner", "left_at")
 
 
 class DogSearchForm(forms.Form):
