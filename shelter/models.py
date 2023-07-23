@@ -88,7 +88,7 @@ class Pet(models.Model):
         on_delete=models.SET_DEFAULT,
         blank=True,
         null=True,
-        default="unknown"
+        default=None
     )
     age = models.PositiveIntegerField(
         null=True,
