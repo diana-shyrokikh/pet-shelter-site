@@ -46,15 +46,17 @@ The main functions of project:
 
 ## Functional
 
-1. Register new user account and pet account by staff (staff required)
-2. Add a new cat and dog breed (staff required)
-3. Change user's email and phone number
-4. Change all pet information (staff required)
-5. Search cat or dog who needs family in list by name and breed
-6. Search pet in pet list with all info about pet even who founded a family (staff required)
-7. Search users by username, first name and last name (staff required)
-8. Look extra pet information in pet profile
-9. Look user information about pets, discounts in user profile 
+1. Create staff profiles in admin page (superuser required)
+2. Register new user account and pet account (staff required)
+3. Add a new cat and dog breed (staff required)
+4. Change user's email and phone number
+5. Change all pet information (staff required)
+6. Search cat or dog who needs family in list by name and breed
+7. Search pet in pet list with all info about pet even who founded a family (staff required)
+8. Search users by username, first name and last name (staff required)
+9. Look extra pet information in pet profile
+10. Look user information about pets, discounts in user profile
+
 
 <hr>
 
