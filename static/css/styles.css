@@ -46,8 +46,8 @@ body {
    height:325px;
 }
 
-.height-250 {
-    height: 250px;
+.height-400 {
+    height: 400px;
 }
 
 .list-title {
@@ -64,7 +64,7 @@ body {
 
 
 .pet-form-height {
-    height: 750px;
+    height: 850px;
 }
 
 #description {
@@ -109,9 +109,9 @@ body {
 }
 
 #create-user {
-    height: 670px;
+    height: 850px;
 }
 
 #update-user {
-    height: 250px;
+    height: 400px;
 }

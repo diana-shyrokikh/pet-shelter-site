@@ -65,8 +65,8 @@
                     type="radio"
                     name="gender"
                     value="Female"
-                    checked
                     {% if object.gender == "Female" %} checked {% endif %}
+                    {% if not object %} checked {% endif %}
                     required
                 >
                 Female
