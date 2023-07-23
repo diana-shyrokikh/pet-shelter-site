@@ -150,7 +150,6 @@ class AdminSiteTests(TestCase):
             name="TestPetCat",
             gender="Female",
             type=self.type_cat,
-            breed=self.breed_cat,
         )
 
         url = reverse(
@@ -170,7 +169,6 @@ class AdminSiteTests(TestCase):
             name="PetTest",
             gender="Female",
             type=self.type,
-            breed=self.breed,
         )
 
         url = reverse(
