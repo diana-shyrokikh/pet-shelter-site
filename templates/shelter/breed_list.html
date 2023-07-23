@@ -49,34 +49,34 @@
         </form>
       </div>
 
-      <table
-          id="Table"
-          class="w3-table w3-centered table-font-size"
-      >
+      <table id="Table" class="w3-table w3-centered">
         <tr>
-          <th>
+          <th class="width-30">
             Name
           </th>
-          <th>
+          <th class="width-30">
             Type
           </th>
-          <th>Update</th>
+          <th class="width-30">
+            Update
+          </th>
         </tr>
         {% for breed in breed_list %}
           <tr>
-            <td id="td">
+            <td>
               <b>{{ breed.name }}</b>
             </td>
-          <td id="td">
-            {{ breed.type }}
-          </td>
-          <td id="td">
-            <a href="{% url 'shelter:breed-update' pk=breed.id %}">
-              UPDATE
-            </a>
-          </td>
+            <td>
+              {{ breed.type.name }}
+            </td>
+            <td>
+              <a href="{% url 'shelter:breed-update' pk=breed.id %}">
+                UPDATE
+              </a>
+            </td>
+
+          </tr>
         {% endfor %}
-        </tr>
       </table>
 
     {% else %}
