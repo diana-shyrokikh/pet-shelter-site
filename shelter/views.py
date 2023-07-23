@@ -19,10 +19,13 @@ from shelter.forms import (
     PetSearchForm,
     PetOwnerSearchForm,
 )
-from shelter.models import Breed, Pet, PetOwner
+from shelter.models import Breed, Pet, PetOwner, Type
 
 
 def index(request):
+    Type.objects.get_or_create(name="Dog")
+    Type.objects.get_or_create(name="Cat")
+
     num_shelter_cats = Pet.objects.filter(
         type__name="Cat", left_at=None
     ).count()
