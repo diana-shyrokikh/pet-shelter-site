@@ -101,23 +101,34 @@ class BreedListView(generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(BreedListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
+        type_ = self.request.GET.get("type", "")
 
         if name:
             context["search_form"] = BreedSearchForm(initial={
                 "name": name,
+            })
+        if type_:
+            context["search_form"] = BreedSearchForm(initial={
+                "type": type_,
             })
 
         return context
 
     def get_queryset(self):
         name = BreedSearchForm(self.request.GET)
+        type_ = BreedSearchForm(self.request.GET)
         queryset = Breed.objects.select_related("type")
 
         name.is_valid()
+        type_.is_valid()
 
         if name.cleaned_data["name"]:
             return queryset.filter(
                 name__icontains=name.cleaned_data["name"]
+            )
+        elif type_.cleaned_data["type"]:
+            return queryset.filter(
+                type__name__icontains=name.cleaned_data["type"]
             )
 
         return queryset

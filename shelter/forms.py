@@ -11,6 +11,12 @@ class BreedSearchForm(forms.Form):
         label="",
         widget=forms.TextInput()
     )
+    type = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput()
+    )
 
 
 class CatForm(forms.ModelForm):
