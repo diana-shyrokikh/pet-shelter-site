@@ -290,6 +290,7 @@ class PetListView(StaffUserRequiredMixin, generic.ListView):
         context = super(PetListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
         breed = self.request.GET.get("breed", "")
+        gender = self.request.GET.get("gender", "")
 
         if name:
             context["search_form"] = PetSearchForm(initial={
@@ -299,26 +300,32 @@ class PetListView(StaffUserRequiredMixin, generic.ListView):
             context["search_form"] = PetSearchForm(initial={
                 "breed": breed,
             })
+        elif gender:
+            context["search_form"] = PetSearchForm(initial={
+                "gender": gender,
+            })
 
         return context
 
     def get_queryset(self):
-        name = PetSearchForm(self.request.GET)
-        breed = PetSearchForm(self.request.GET)
+        form = PetSearchForm(self.request.GET)
         queryset = Pet.objects.select_related(
             "type", "breed"
         ).order_by("arrived_at")
 
-        name.is_valid()
-        breed.is_valid()
+        form.is_valid()
 
-        if name.cleaned_data["name"]:
+        if form.cleaned_data["name"]:
             return queryset.filter(
-                name__icontains=name.cleaned_data["name"]
+                name__icontains=form.cleaned_data["name"]
             )
-        elif breed.cleaned_data["breed"]:
+        elif form.cleaned_data["breed"]:
             return queryset.filter(
-                breed__name__icontains=breed.cleaned_data["breed"]
+                breed__name__icontains=form.cleaned_data["breed"]
+            )
+        elif form.cleaned_data["gender"]:
+            return queryset.filter(
+                gender__icontains=form.cleaned_data["gender"]
             )
 
         return queryset
@@ -352,26 +359,22 @@ class PetOwnerListView(StaffUserRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        username = PetOwnerSearchForm(self.request.GET)
-        first_name = PetOwnerSearchForm(self.request.GET)
-        last_name = PetOwnerSearchForm(self.request.GET)
+        form = PetOwnerSearchForm(self.request.GET)
         queryset = PetOwner.objects.order_by("date_joined")
 
-        username.is_valid()
-        first_name.is_valid()
-        last_name.is_valid()
+        form.is_valid()
 
-        if username.cleaned_data["username"]:
+        if form.cleaned_data["username"]:
             return queryset.filter(
-                username__icontains=username.cleaned_data["username"]
+                username__icontains=form.cleaned_data["username"]
             )
-        elif first_name.cleaned_data["first_name"]:
+        elif form.cleaned_data["first_name"]:
             return queryset.filter(
-                first_name__icontains=first_name.cleaned_data["first_name"]
+                first_name__icontains=form.cleaned_data["first_name"]
             )
-        elif last_name.cleaned_data["last_name"]:
+        elif form.cleaned_data["last_name"]:
             return queryset.filter(
-                last_name__icontains=last_name.cleaned_data["last_name"]
+                last_name__icontains=form.cleaned_data["last_name"]
             )
 
         return queryset
