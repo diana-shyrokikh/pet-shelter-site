@@ -28,10 +28,10 @@ class AdminSiteTests(TestCase):
         self.type = Type.objects.create(
             name="Dog",
         )
-        # self.breed = Breed.objects.create(
-        #     name="dog breed",
-        #     type=self.type
-        # )
+        self.breed = Breed.objects.create(
+            name="DogTestBreed",
+            type=self.type
+        )
 
     def test_pet_owner_additional_info_listed(self):
         url = reverse("admin:shelter_petowner_changelist")
@@ -90,3 +90,26 @@ class AdminSiteTests(TestCase):
         self.assertContains(response, self.type.name)
 
 #########
+
+    def test_breed_list_filter_by_type(self):
+        url = reverse(
+            "admin:shelter_breed_changelist",
+        )
+        response = self.client.get(url)
+
+        self.assertContains(response, "By date type")
+
+    def test_breed_search_name(self):
+        Breed.objects.create(
+            name="DogBreedTest",
+            type=self.type
+        )
+
+        url = reverse(
+            "admin:shelter_breed_changelist",
+        ) + "?q=DogBreedTest"
+        response = self.client.get(url)
+
+        self.assertNotContains(response, "DogTestBreed")
+
+
