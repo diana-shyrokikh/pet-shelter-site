@@ -77,6 +77,19 @@ class StaffUserRequiredMixin(AccessMixin):
         )
 
 
+class RightUserRequiredMixin(AccessMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id != kwargs["pk"]:
+            if self.raise_exception:
+                raise PermissionDenied
+            else:
+                return redirect(reverse("shelter:index"))
+
+        return super(RightUserRequiredMixin, self).dispatch(
+            request, *args, **kwargs
+        )
+
+
 class BreedListView(generic.ListView):
     model = Breed
     context_object_name = "breed_list"
@@ -343,13 +356,13 @@ class PetOwnerCreateView(StaffUserRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("shelter:pet-list")
 
 
-class PetOwnerDetailView(generic.DetailView):
+class PetOwnerDetailView(RightUserRequiredMixin, generic.DetailView):
     model = PetOwner
     template_name = "shelter/pet_owner_detail.html"
     context_object_name = "pet_owner_detail"
 
 
-class PetOwnerUpdateView(generic.UpdateView):
+class PetOwnerUpdateView(RightUserRequiredMixin, generic.UpdateView):
     model = PetOwner
     form_class = PetOwnerUpdateForm
     template_name = "shelter/pet_owner_form.html"
