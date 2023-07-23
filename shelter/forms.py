@@ -46,6 +46,12 @@ class CatSearchForm(forms.Form):
         label="",
         widget=forms.TextInput()
     )
+    gender = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput()
+    )
 
 
 class DogForm(forms.ModelForm):
