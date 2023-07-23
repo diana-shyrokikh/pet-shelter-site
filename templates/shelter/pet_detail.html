@@ -114,6 +114,19 @@
           </h5>
           <hr>
         </div>
+        {% if pet_detail.pet_owner %}
+          <div class="w3-container">
+            <h5><b>Pet Owner:</b>
+              <a
+                href="{% url 'shelter:pet-owner-detail' pk=pet_detail.pet_owner.id %}"
+              >
+                {{ pet_detail.pet_owner.username }}
+              </a>
+            </h5>
+            <hr>
+          </div>
+
+        {% endif %}
         <div class="w3-container">
           {% if pet_detail.description %}
             <h5><b>Description:</b></h5>
