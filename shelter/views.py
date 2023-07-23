@@ -79,7 +79,7 @@ class StaffUserRequiredMixin(AccessMixin):
 
 class RightUserRequiredMixin(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
-        if request.user.id != kwargs["pk"]:
+        if request.user.id != kwargs["pk"] and  not request.user.is_staff:
             if self.raise_exception:
                 raise PermissionDenied
             else:
