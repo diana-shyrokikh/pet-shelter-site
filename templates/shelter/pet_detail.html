@@ -11,18 +11,18 @@
 
     <div class="w3-third w3-padding-16">
 
-      <div class="w3-white w3-text-grey w3-card-4">
+      <div class="w3-white w3-text-grey w3-card-4 w3-round-xxlarge">
         <div class="w3-display-container">
           {% if pet_detail.photo %}
             <img
                 src="{{pet_detail.photo.url}}"
-                class="w3-round width-100"
+                class="w3-round-xxlarge width-100"
                 alt="Pet Photo"
             >
           {% else %}
             <img
                 src="{% static 'images/coming_soon.png' %}"
-                class="w3-round width-100"
+                class="w3-round-xxlarge width-100"
                 alt="Come Soon"
             >
           {% endif %}
@@ -33,7 +33,7 @@
     </div>
 
     <div class="w3-twothird">
-      <div class="w3-container w3-card w3-white w3-margin">
+      <div class="w3-container w3-card w3-white w3-margin w3-round-xxlarge">
         <h2 class="w3-padding-16">
           <b>{{ pet_detail.name }}</b>
         </h2>
@@ -121,7 +121,7 @@
         </div>
       </div>
       {% if user.is_authenticated %}
-        <div class="w3-container">
+        <div class="w3-container w3-margin-left">
           {% if pet_detail.type.name == "Dog"  %}
             <a
                 href="{% url 'shelter:dog-update' pk=object.id %}"
