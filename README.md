@@ -14,6 +14,7 @@
 ## Table of Contents
 
 - [About Project](#about-project)
+- [Check it out](#check-it-out)
 - [Application functional](#functional)
 - [Technologies](#technologies)
 - [Prerequisites](#prerequisites)
@@ -44,6 +45,12 @@ The main functions of project:
 
 <hr>
 
+## Check it out!
+
+[Pet Shelter Site deployed to Render]()
+
+<hr>
+
 ## Functional
 
 1. Create staff profiles in admin page (superuser required)
@@ -63,8 +70,11 @@ The main functions of project:
 ## Technologies
 
 - [Django Official Documentation](https://docs.djangoproject.com/)
-Django is a high-level Python Web framework. In this project, it's used to create the backend service. This service builds the Django application and exposes it on port 8080.
+<br>Django is a high-level Python Web framework. In this project, it's used to create the backend service. This service builds the Django application and exposes it on port 8080.
 
+
+- [Postgres Official Documentation](https://www.postgresql.org/docs/)
+<br>Postgres is a powerful, open-source object-relational database system. In this project, it is used as the main data store. This service runs the latest version of Postgres, exposed on port 5432. It uses a volume to persist the database data.
 <hr>
 
 ## Prerequisites
@@ -91,13 +101,8 @@ venv\Scripts\activate (on Windows)
 source venv/bin/activate (on macOS)
 pip install -r requirements.txt
 ```
-4. Make migrations:
-```
-python manage.py makemigrations
-python manage.py migrate
-```
 
-5. Run Django server:
+4. Run Django server:
 ```
 python manage.py runserver
 ```
@@ -109,10 +114,12 @@ python manage.py runserver
 1. Pet Shelter Site is accessible at `http://localhost:8000/`.
 2. Django Admin Page is accessible at `http://localhost:8000/admin`.
 
-Use these credentials to log in as admin:
 
-    Login: admin 
-    Password: admin123456
+Use these credentials to log in as a user
+<br>(functionality for staff will be open):
+
+    Login: user 
+    Password: user123456
 
 <hr>
 
