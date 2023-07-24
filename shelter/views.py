@@ -2,11 +2,10 @@ from datetime import date
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import AccessMixin
-from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.views import generic
+from django.views import generic, View
 
 from shelter.forms import (
     BreedSearchForm,
@@ -22,50 +21,59 @@ from shelter.forms import (
 from shelter.models import Breed, Pet, PetOwner, Type
 
 
-def index(request):
-    Type.objects.get_or_create(name="Dog")
-    Type.objects.get_or_create(name="Cat")
+class IndexView(View):
 
-    num_shelter_cats = Pet.objects.filter(
-        type__name="Cat", left_at=None
-    ).count()
-    num_shelter_dogs = Pet.objects.filter(
-        type__name="Dog", left_at__isnull=True
-    ).count()
-    num_home_dogs = Pet.objects.filter(
-        type__name="Dog", left_at__isnull=False
-    ).count()
-    num_home_cats = Pet.objects.filter(
-        type__name="Cat", left_at__isnull=False
-    ).count()
+    @staticmethod
+    def get(request):
+        Type.objects.get_or_create(name="Dog")
+        Type.objects.get_or_create(name="Cat")
 
-    context = {
-        "num_shelter_cats": num_shelter_cats,
-        "num_shelter_dogs": num_shelter_dogs,
-        "num_home_dogs": num_home_dogs,
-        "num_home_cats": num_home_cats
-    }
-    return render(request, "shelter/index.html", context=context)
+        num_shelter_cats = Pet.objects.filter(
+            type__name="Cat", left_at=None
+        ).count()
+        num_shelter_dogs = Pet.objects.filter(
+            type__name="Dog", left_at__isnull=True
+        ).count()
+        num_home_dogs = Pet.objects.filter(
+            type__name="Dog", left_at__isnull=False
+        ).count()
+        num_home_cats = Pet.objects.filter(
+            type__name="Cat", left_at__isnull=False
+        ).count()
+
+        context = {
+            "num_shelter_cats": num_shelter_cats,
+            "num_shelter_dogs": num_shelter_dogs,
+            "num_home_dogs": num_home_dogs,
+            "num_home_cats": num_home_cats
+        }
+        return render(request, "shelter/index.html", context=context)
 
 
-@staff_member_required
-def adopt_pet_to_user(request, pk):
-    pet = get_object_or_404(Pet, pk=pk)
-    username = request.POST.get("username")
-    pet_owner = get_user_model().objects.get(username=username)
-
-    if pet in pet_owner.pets.all():
-        pet.left_at = None
-        pet.save()
-        pet_owner.pets.remove(pet)
-    else:
-        pet.left_at = date.today()
-        pet.save()
-        pet_owner.pets.add(pet)
-    pet_owner.save()
-
-    return redirect('shelter:pet-detail', pk=pet.id)
-
+# def index(request):
+#     Type.objects.get_or_create(name="Dog")
+#     Type.objects.get_or_create(name="Cat")
+#
+#     num_shelter_cats = Pet.objects.filter(
+#         type__name="Cat", left_at=None
+#     ).count()
+#     num_shelter_dogs = Pet.objects.filter(
+#         type__name="Dog", left_at__isnull=True
+#     ).count()
+#     num_home_dogs = Pet.objects.filter(
+#         type__name="Dog", left_at__isnull=False
+#     ).count()
+#     num_home_cats = Pet.objects.filter(
+#         type__name="Cat", left_at__isnull=False
+#     ).count()
+#
+#     context = {
+#         "num_shelter_cats": num_shelter_cats,
+#         "num_shelter_dogs": num_shelter_dogs,
+#         "num_home_dogs": num_home_dogs,
+#         "num_home_cats": num_home_cats
+#     }
+#     return render(request, "shelter/index.html", context=context)
 
 class StaffUserRequiredMixin(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
@@ -82,7 +90,7 @@ class StaffUserRequiredMixin(AccessMixin):
 
 class RightUserRequiredMixin(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
-        if request.user.id != kwargs["pk"] and  not request.user.is_staff:
+        if request.user.id != kwargs["pk"] and not request.user.is_staff:
             if self.raise_exception:
                 raise PermissionDenied
             else:
@@ -91,6 +99,27 @@ class RightUserRequiredMixin(AccessMixin):
         return super(RightUserRequiredMixin, self).dispatch(
             request, *args, **kwargs
         )
+
+
+class AdoptPet(StaffUserRequiredMixin, View):
+
+    @staticmethod
+    def post(request, pk):
+        pet = get_object_or_404(Pet, pk=pk)
+        username = request.POST.get("username")
+        pet_owner = get_user_model().objects.get(username=username)
+
+        if pet in pet_owner.pets.all():
+            pet.left_at = None
+            pet.save()
+            pet_owner.pets.remove(pet)
+        else:
+            pet.left_at = date.today()
+            pet.save()
+            pet_owner.pets.add(pet)
+        pet_owner.save()
+
+        return redirect('shelter:pet-detail', pk=pet.id)
 
 
 class BreedListView(generic.ListView):
