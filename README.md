@@ -103,7 +103,10 @@ source venv/bin/activate (on macOS)
 pip install -r requirements.txt
 ```
 
-4. Run Django server:
+4. Сreate your secret key in secret_key.txt:
+
+
+5. Run Django server:
 ```
 python manage.py runserver
 ```
