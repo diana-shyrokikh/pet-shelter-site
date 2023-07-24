@@ -10,7 +10,7 @@ from django.core.validators import (
 from django.db import models
 
 
-from pet_shelter_site import settings
+from config import settings
 
 
 class Type(models.Model):

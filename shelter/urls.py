@@ -1,8 +1,8 @@
 from django.urls import path, include
 
 from shelter.views import (
-    # adopt_pet_to_user,
-    # index,
+    IndexView,
+    AdoptPet,
     BreedListView,
     BreedCreateView,
     BreedUpdateView,
@@ -17,11 +17,10 @@ from shelter.views import (
     PetOwnerListView,
     PetOwnerCreateView,
     PetOwnerDetailView,
-    PetOwnerUpdateView, IndexView, AdoptPet,
+    PetOwnerUpdateView,
 )
 
 urlpatterns = [
-    # path("", index, name="index"),
     path("", IndexView.as_view(), name="index"),
     path(
         "breeds/create/",

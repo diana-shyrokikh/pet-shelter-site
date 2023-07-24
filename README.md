@@ -96,11 +96,8 @@ pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
 ```
-5. Create a superuser to use staff required functions:
-```
-python manage.py createsuperuser
-```
-6. Run Django server:
+
+5. Run Django server:
 ```
 python manage.py runserver
 ```
@@ -111,6 +108,11 @@ python manage.py runserver
 
 1. Pet Shelter Site is accessible at `http://localhost:8000/`.
 2. Django Admin Page is accessible at `http://localhost:8000/admin`.
+
+Use these credentials to log in as admin:
+
+    Login: admin 
+    Password: admin123456
 
 <hr>
 
