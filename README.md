@@ -103,7 +103,7 @@ source venv/bin/activate (on macOS)
 pip install -r requirements.txt
 ```
 
-4. Сreate your secret key in secret_key.txt:
+4. Сreate your secret key in secret_key.txt
 
 
 5. Run Django server:
@@ -143,5 +143,3 @@ Use these credentials to log in as a user
 <hr>
 
 Remember to replace `localhost` with the relevant IP address if you're not accessing these from the same machine where the services are running.
-
-Please make sure to replace placeholders with your actual values in the `.env` file. Also, these instructions are subject to changes in the project, so always refer to the project's README or other documentation for the most accurate information.
