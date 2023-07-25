@@ -98,7 +98,7 @@ class Pet(models.Model):
     description = models.TextField(null=True, blank=True)
     arrived_at = models.DateField(auto_now_add=True)
     left_at = models.DateField(null=True, blank=True)
-    photo = models.ImageField(null=True, blank=True, upload_to="images/")
+    photo = models.URLField(null=True, blank=True,)
     pet_owner = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         related_name="pets",

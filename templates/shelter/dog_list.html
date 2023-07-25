@@ -106,7 +106,7 @@
               <a href="{% url 'shelter:pet-detail' pk=dog.id %}">
                 {% if dog.photo %}
                   <img
-                      src="{{ dog.photo.url }}"
+                      src="{{ dog.photo }}"
                       class="w3-round pet-photo"
                       alt="Dog Photo"
                   >

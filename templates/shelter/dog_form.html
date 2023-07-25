@@ -171,21 +171,18 @@
           {% endif %}
         </p>
         <p>
-          <label class="w3-text-black w3-padding">
-            <b>Photo:</b>
-          </label>
           <label
               for="photo"
-              class="w3-button w3-black w3-text-yellow
-                     w3-round-xxlarge w3-padding"
-          >
-            Add a photo
+              class="w3-text-black w3-padding">
+            <b>Photo: </b>
           </label>
           <input
               id="photo"
-              class="w3-border w3-sand w3-round-xxlarge"
+              class="w3-input w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
               name="photo"
-              type="file"
+              type="url"
+              {% if object %} value="{{ object.photo }}" {% endif %}
           >
           {% if form.errors.photo %}
             {{ form.errors.photo }}

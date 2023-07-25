@@ -71,10 +71,6 @@ body {
     resize: none;
 }
 
-#photo {
-    display: none;
-}
-
 .pet-photo {
     width:100px;
     height: 100px;
