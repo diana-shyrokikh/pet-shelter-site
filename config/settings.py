@@ -10,9 +10,7 @@ with open("secret_key") as file:
 
 SECRET_KEY = os.environ.get("SECRET_KEY", SECRET_KEY)
 
-DEBUG = os.environ.get("DJANGO_DEBUG", "True")
-
-# DEBUG = False
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != 'False'
 
 ALLOWED_HOSTS = ["127.0.0.1",]
 
@@ -114,8 +112,4 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = "staticfiles/"
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-# MEDIA_URL = '/media/'
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
