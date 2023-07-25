@@ -1,0 +1,35 @@
+{% load query_transform %}
+
+{% if is_paginated %}
+  <div class="pagination w3-center w3-bar w3-margin">
+    {% if page_obj.has_previous %}
+      <a
+          href="?{% query_transform request page=page_obj.previous_page_number%}"
+          class="w3-button pag-font-size"
+      >
+        &laquo;
+      </a>
+    {% else %}
+      <a href="" class="w3-button pag-font-size">&laquo;</a>
+    {% endif %}
+
+    <span class="page-link pag-font-size">
+      {{ page_obj.number }} of {{ paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+      <a
+          href="?{% query_transform request page=page_obj.next_page_number%}"
+          class="w3-button pag-font-size"
+      >
+        &raquo;
+      </a>
+    {% else %}
+      <a href="" class="w3-button pag-font-size">&raquo;</a>
+    {% endif %}
+  </div>
+{% else %}
+  <div class="pagination w3-center w3-bar w3-margin">
+    <p class="pag-font-size">&nbsp;</p>
+  </div>
+{% endif %}

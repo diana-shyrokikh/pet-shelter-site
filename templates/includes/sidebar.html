@@ -1,0 +1,64 @@
+{% load static %}
+
+<div
+    class="w3-sidebar w3-bar-block w3-round-xxlarge
+           w3-center w3-text-yellow w3-black"
+    id="mySidebar"
+>
+  <button
+      class="w3-bar-item w3-button w3-large"
+      onclick="closeSidebar()"
+  >
+    Close &times;
+  </button>
+  <br>
+  Menu
+  <br>
+  <br>
+  <a
+      href="{% url 'shelter:breed-create' %}"
+      class="w3-bar-item w3-button w3-border-bottom w3-border-yellow"
+  >
+    Add Breed
+  </a>
+  <a
+      href="{% url 'shelter:breed-list' %}"
+      class="w3-bar-item w3-button w3-border-bottom w3-border-yellow"
+  >
+    Breed List
+  </a>
+  <br>
+  <a
+      href="{% url 'shelter:cat-create' %}"
+      class="w3-bar-item w3-button w3-border-bottom w3-border-yellow"
+  >
+    Create Cat Profile
+  </a>
+  <a
+      href="{% url 'shelter:dog-create' %}"
+      class="w3-bar-item w3-button w3-border-bottom w3-border-yellow"
+  >
+    Create Dog Profile
+  </a>
+  <a
+      href="{% url 'shelter:pet-list' %}"
+      class="w3-bar-item w3-button w3-border-bottom w3-border-yellow"
+  >
+    Pet List
+  </a>
+  <br>
+  <a
+      href="{% url 'shelter:pet-owner-create' %}"
+      class="w3-bar-item w3-button w3-border-bottom w3-border-yellow"
+  >
+    Create User Profile
+  </a>
+  <a
+      href="{% url 'shelter:pet-owner-list' %}"
+      class="w3-bar-item w3-button w3-border-bottom w3-border-yellow"
+  >
+    User List
+  </a>
+</div>
+
+<script src="{% static 'js/close-sidebar.js' %}"></script>

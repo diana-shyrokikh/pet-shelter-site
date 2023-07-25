@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  <title>Pet Profile | Pet Shelter</title>
+{% endblock %}
+
+{% block content %}
+
+  <div class="w3-row-padding">
+
+    <div class="w3-third w3-padding-16">
+
+      <div class="w3-white w3-text-grey w3-card-4 w3-round-xxlarge">
+        <div class="w3-display-container">
+          {% if pet_detail.photo %}
+            <img
+                src="{{pet_detail.photo}}"
+                class="w3-round-xxlarge width-100"
+                alt="Pet Photo"
+            >
+          {% else %}
+            <img
+                src="{% static 'images/coming_soon.png' %}"
+                class="w3-round-xxlarge width-100"
+                alt="Come Soon"
+            >
+          {% endif %}
+        </div>
+      </div>
+      <br>
+
+    </div>
+
+    <div class="w3-twothird">
+      <div class="w3-container w3-card w3-white w3-margin w3-round-xxlarge">
+        <h2 class="w3-padding-16">
+          <b>{{ pet_detail.name }}</b>
+        </h2>
+        {% if user.is_staff %}
+          <button
+              class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
+              onclick="openAdoptionForm('Button')"
+          >
+            {% if pet_detail.pet_owner %}
+              Abandon from the pet :(
+            {% else %}
+              Adopt the pet :)
+            {% endif %}
+          </button>
+        {% endif %}
+
+        <div
+            id="Button"
+            class="w3-hide w3-container w3-white w3-margin"
+        >
+          <form
+              action="{% url 'shelter:adopt-pet' pk=object.id %}"
+              method="post"
+          >
+            {% csrf_token %}
+            <label
+                for="username"
+                class="w3-padding"
+            >
+              Pet's owner username:
+            </label>
+            <input
+                id="username"
+                type="text"
+                name="username"
+                class="w3-input w3-border w3-sand
+                       w3-round-xxlarge width-30 w3-padding"
+            >
+            <br>
+            <button
+                class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
+                type="submit">
+              <b>Submit</b>
+            </button>
+          </form>
+        </div>
+
+        <div class="w3-container">
+          <h6 class="w3-padding-16">
+            <i class="fa fa-calendar fa-fw w3-margin-right"></i>
+            {{ pet_detail.arrived_at }} -
+            {% if not pet_detail.left_at %}
+              <span class="w3-tag w3-round">Current</span>
+            {% else %}
+              {{ pet_detail.left_at }}
+            {% endif %}
+          </h6>
+          <h5><b>Type:</b> {{ pet_detail.type }}</h5>
+          <h5>
+            <b>Breed:</b>
+            {% if pet_detail.breed.name %}
+              {{ pet_detail.breed.name }}
+            {% else %}
+              Unknown
+            {% endif %}
+          </h5>
+          <hr>
+        </div>
+        <div class="w3-container">
+          <h5><b>Gender:</b> {{ pet_detail.gender }}</h5>
+          <h5>
+            <b>Age:</b>
+            {% if pet_detail.age %}
+              {{ pet_detail.age }} year{{ pet_detail.age|pluralize }}
+            {% else %}
+              Unknown
+            {% endif %}
+          </h5>
+          <hr>
+        </div>
+        {% if pet_detail.pet_owner %}
+          <div class="w3-container">
+            <h5><b>Pet Owner:</b>
+              <a
+                href="{% url 'shelter:pet-owner-detail' pk=pet_detail.pet_owner.id %}"
+              >
+                {{ pet_detail.pet_owner.username }}
+              </a>
+            </h5>
+            <hr>
+          </div>
+
+        {% endif %}
+        <div class="w3-container">
+          {% if pet_detail.description %}
+            <h5><b>Description:</b></h5>
+            <h4>{{ pet_detail.description }}</h4>
+          {% endif %}
+          <br>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+        <div class="w3-container w3-margin-left">
+          {% if pet_detail.type.name == "Dog"  %}
+            <a
+                href="{% url 'shelter:dog-update' pk=object.id %}"
+                class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
+            >
+              <b>Update Info</b>
+            </a>
+          {% else %}
+            <a
+                href="{% url 'shelter:cat-update' pk=object.id %}"
+                class="w3-btn w3-black w3-text-yellow w3-round-xxlarge"
+            >
+              <b>Update Info</b>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+<script src="{% static 'js/open-adoption-form.js' %}"></script>{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  <title>User List | Pet Shelter</title>
+{% endblock %}
+
+{% block content %}
+
+  <div class="w3-container">
+    <div class="w3-container w3-black w3-round-xxlarge list-title">
+      <h2 class="w3-text-yellow w3-center">
+        User List
+      </h2>
+    </div>
+
+    {% if pet_owner_list %}
+      <div class="w3-row">
+        <form
+            action=""
+            method="get"
+            class="w3-third w3-padding"
+        >
+          <p class="w3-row w3-center">
+            <input
+                class="w3-input w3-border w3-sand
+                       w3-round-xxlarge w3-center w3-margin"
+                name="username"
+                type="search"
+                placeholder="Search by username"
+                value="{{ search_form.username.value }}"
+            />
+          </p>
+
+        </form>
+        <form
+            action=""
+            method="get"
+            class="w3-third w3-padding"
+        >
+          <p class="w3-row w3-center">
+            <input
+                class="w3-input w3-border w3-sand
+                       w3-round-xxlarge w3-center w3-margin"
+                name="first_name"
+                type="search"
+                placeholder="Search by first name"
+                value="{{ search_form.first_name.value }}"
+            />
+          </p>
+        </form>
+
+        <form
+            action=""
+            method="get"
+            class="w3-third w3-padding"
+        >
+          <p class="w3-row w3-center">
+            <input
+                class="w3-input w3-border w3-sand
+                       w3-round-xxlarge w3-center w3-margin"
+                name="last_name"
+                type="search"
+                placeholder="Search by last name"
+                value="{{ search_form.last_name.value }}"
+            />
+          </p>
+        </form>
+      </div>
+      <table id="Table" class="w3-table w3-centered table-font-size">
+        <tr>
+          <th>
+            Username
+          </th>
+          <th>First Name
+          </th>
+          <th>
+            Last Name
+          </th>
+          <th>Phone Number</th>
+          <th>Date Joined</th>
+        </tr>
+        {% for pet_owner in pet_owner_list %}
+          <tr>
+            <td id="td">
+              <a href="{% url 'shelter:pet-owner-detail' pk=pet_owner.id %}">
+                <b>{{ pet_owner.username }}</b>
+              </a>
+            </td>
+            <td id="td">
+              {{ pet_owner.first_name }}
+            </td>
+            <td id="td">
+              {{ pet_owner.last_name }}
+            </td>
+            <td id="td">
+              {{ pet_owner.phone_number }}
+            </td>
+            <td id="td">
+              {{ pet_owner.date_joined }}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+
+    {% else %}
+      <div class="w3-container w3-center">
+        <br>
+        <hr>
+        <h2 class="w3-center">
+          No users have been found
+        </h2>
+        <hr>
+        <br>
+        <p class="w3-center">
+          <a
+              href="{% url 'shelter:pet-owner-list' %}"
+              class="w3-btn w3-black w3-text-yellow
+                     w3-round-xxlarge w3-xlarge"
+          >
+          Return back
+          </a>
+        </p>
+      </div>
+    {% endif %}
+
+  </div>
+
+{% endblock %}

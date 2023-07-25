@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  <title>Logout | Pet Shelter</title>
+{% endblock %}
+
+{% block content %}
+  <div class="w3-display-container field-height">
+    <div
+        class="w3-card-4 w3-margin w3-round-xxlarge
+               w3-half w3-display-topmiddle">
+      <div class="w3-container w3-black w3-round-xxlarge">
+        <h2 class="w3-text-yellow w3-center">
+          You are logged out
+        </h2>
+      </div>
+      <div class="w3-container w3-center">
+        <br>
+        <hr>
+        <h3 class="w3-center">
+          Have a nice day!
+        </h3>
+        <h3 class="w3-center">
+          See you next time!
+        </h3>
+        <hr>
+        <br>
+        <p class="w3-center">
+          <a
+              href="{% url 'shelter:login' %}"
+              class="w3-btn w3-black w3-text-yellow w3-round-xxlarge w3-xlarge"
+          >
+            Click here to login
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

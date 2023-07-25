@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}
+   <title>
+     {{ object|yesno:"Update, Create" }} Profile | Pet Shelter
+   </title>
+{% endblock %}
+
+{% block content %}
+  <div class="w3-display-container pet-form-height">
+    <div class="w3-card-4 w3-margin w3-round-xxlarge w3-half w3-display-topmiddle">
+      <div class="w3-container w3-black w3-round-xxlarge">
+        <h2 class="w3-text-yellow w3-center">
+          {{ object|yesno:"Update, Create" }} Dog Profile
+        </h2>
+      </div>
+      <form
+          class="w3-container w3-padding"
+          method="post"
+          action="{% if object %} {% url 'shelter:dog-update' pk=object.id %}
+                  {% else %} {% url 'shelter:dog-create' %}{% endif %}"
+          enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <p>
+          <label
+              for="name"
+              class="w3-text-black w3-padding">
+            <b>Name: *</b>
+          </label>
+          <input
+              id="name"
+              class="w3-input w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
+              name="name"
+              type="text"
+              {% if object %} value="{{ object.name }}" {% endif %}
+              required
+          >
+          {% if form.errors.name %}
+            {{ form.errors.name }}
+          {% endif %}
+        </p>
+        <div>
+          <label class="w3-text-black w3-padding">
+            <b>Gender: *</b>
+          </label>
+          <div class="w3-row w3-center">
+            <div class="w3-half">
+              <label>
+                <input
+                    class="w3-radio"
+                    type="radio"
+                    name="gender"
+                    value="Male"
+                    {% if object.gender == "Male" %} checked {% endif %}
+                >
+                Male
+              </label>
+            </div>
+            <div class="w3-half">
+              <label>
+                <input
+                    class="w3-radio"
+                    type="radio"
+                    name="gender"
+                    value="Female"
+                    {% if object.gender == "Female" %} checked {% endif %}
+                    {% if not object %} checked {% endif %}
+                    required
+                >
+                Female
+              </label>
+            </div>
+          </div>
+          {% if form.errors.gender %}
+            {{ form.errors.gender }}
+          {% endif %}
+        </div>
+        <p>
+          <label
+              for="type"
+              class="w3-text-black w3-padding"
+          >
+            <b>Type: *</b>
+          </label>
+          <select
+              id="type"
+              class="w3-select w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
+              name="type"
+          >
+            <option value="" disabled selected>
+              Choose type
+            </option>
+            {% if form.type %}
+              {% for type in form.type %}
+                <option value="type">{{ type }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+          {% if form.errors.type %}
+            {{ form.errors.type }}
+          {% endif %}
+        </p>
+        <p>
+          <label
+              for="breed"
+              class="w3-text-black w3-padding"
+          >
+            <b>Breed:</b>
+          </label>
+          <select
+              id="breed"
+              class="w3-select w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
+              name="breed"
+          >
+            <option value="" disabled selected>
+              Choose breed
+            </option>
+            {% if form.breed %}
+              {% for breed in form.breed %}
+                <option value="breed">{{ breed }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+          {% if form.errors.breed %}
+            {{ form.errors.breed }}
+          {% endif %}
+        </p>
+        <p>
+          <label
+              for="age"
+              class="w3-text-black w3-padding"
+          >
+            <b>Age:</b>
+          </label>
+          <input
+              id="age"
+              class="w3-input w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
+              name="age"
+              type="number"
+              {% if object %} value="{{ object.age }}"
+              {% else %} value="0" {% endif %}
+          >
+          {% if form.errors.age %}
+            {{ form.errors.age }}
+          {% endif %}
+        </p>
+        <p>
+          <label
+              for="description"
+              class="w3-text-black w3-padding"
+          >
+            <b>Description:</b>
+          </label>
+          <textarea
+              id="description"
+              class="w3-input w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
+              name="description"
+              rows="5"
+              cols="40"
+          >
+            {% if object %} {{ object.description }} {% endif %}
+          </textarea>
+          {% if form.errors.description %}
+            {{ form.errors.description }}
+          {% endif %}
+        </p>
+        <p>
+          <label
+              for="photo"
+              class="w3-text-black w3-padding">
+            <b>Photo: </b>
+          </label>
+          <input
+              id="photo"
+              class="w3-input w3-border w3-sand
+                     w3-round-xxlarge w3-padding"
+              name="photo"
+              type="url"
+              {% if object %} value="{{ object.photo }}" {% endif %}
+          >
+          {% if form.errors.photo %}
+            {{ form.errors.photo }}
+          {% endif %}
+        </p>
+        <p class="w3-center">
+          <br>
+          <button
+              class="w3-btn w3-black
+                     w3-text-yellow w3-round-xxlarge"
+              type="submit"
+          >
+            <b>Submit</b>
+          </button>
+        </p>
+        </form>
+    </div>
+  </div>
+{% endblock %}

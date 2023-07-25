@@ -1,0 +1,113 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.index-content {
+    flex: 1;
+}
+
+.div-footer {
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+}
+
+.div-navigation {
+    padding-top: 30px;
+    margin-top: -35px;
+}
+
+.nav-font-size-i {
+   font-size:24px;
+}
+
+.nav-font-size {
+    font-size: 20px;
+}
+
+#nav-link {
+    width:20%;
+    font-size:20px;
+}
+
+.pag-font-size {
+    font-size: 18px;
+}
+
+#mySidebar {
+    display:none;
+    font-size: 20px;
+    margin-left: -50px;
+    width: 300px;
+}
+
+.field-height {
+   height:325px;
+}
+
+.height-400 {
+    height: 400px;
+}
+
+.list-title {
+    margin:30px 100px 30px 100px;
+}
+
+.table-font-size {
+    font-size: 16px;
+}
+
+#td {
+    vertical-align: middle;
+}
+
+
+.pet-form-height {
+    height: 850px;
+}
+
+#description {
+    resize: none;
+}
+
+.pet-photo {
+    width:100px;
+    height: 100px;
+}
+
+.width-100 {
+    width:100%;
+}
+
+.radius {
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+}
+
+#bar-item {
+    width:25%;
+    font-size:20px;
+}
+
+.radius-40 {
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+
+.closed-tab {
+    width:100%;
+    display:none;
+}
+
+.width-30 {
+    width:30%;
+}
+
+#create-user {
+    height: 850px;
+}
+
+#update-user {
+    height: 400px;
+}

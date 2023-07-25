@@ -1,0 +1,84 @@
+{% load static %}
+
+<div>
+  <div class="w3-bar w3-black w3-round-xxlarge div-navigation">
+    <div
+        class="w3-bar-item w3-mobile w3-button
+               w3-text-yellow w3-padding-16 w3-hover-none
+               w3-hover-text-white"
+    >
+      <img src="{% static 'images/logo.svg' %}" alt="Logo">
+    </div>
+
+    {% if user.is_staff%}
+      <a
+          id="openNav"
+          class="w3-bar-item w3-mobile w3-button
+                 w3-text-yellow w3-padding-16 w3-hover-none
+                 w3-hover-text-white w3-mobile nav-font-size-i"
+          onclick="openSidebar()"
+      >
+        &#9776;
+      </a>
+    {% endif %}
+
+    {% if not user.is_authenticated %}
+      <a
+          href="{% url 'shelter:login' %}"
+          class="w3-bar-item w3-mobile w3-button
+                 w3-text-yellow w3-padding-16 w3-right
+                 w3-hover-none w3-hover-text-white"
+      >
+        <i class="fa fa-sign-in nav-font-size-i"></i>
+      </a>
+
+    {% else %}
+        <a
+            href="{% url 'shelter:logout' %}"
+            class="w3-bar-item w3-mobile w3-button w3-text-yellow
+                   w3-padding-16 w3-right w3-hover-none
+                   w3-hover-text-white"
+        >
+          <i class="fa fa-sign-out nav-font-size-i"></i>
+        </a>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      <a
+          href="{% url 'shelter:pet-owner-detail' pk=user.id %}"
+          class="w3-bar-item w3-mobile w3-button w3-text-yellow
+                 w3-padding-16 w3-right w3-hover-none
+                 w3-hover-text-white nav-font-size"
+      >
+        Welcome <b>{{ user.username }}</b>
+      </a>
+    {% endif %}
+
+    <a
+        href="{% url 'shelter:index' %}"
+        class="w3-bar-item w3-mobile w3-button w3-text-yellow
+               w3-padding-16 w3-right w3-hover-none
+               w3-hover-text-white"
+    >
+      <i class="fa fa-home nav-font-size-i"></i>
+    </a>
+    <a
+        href="{% url 'shelter:dog-list' %}"
+        id="nav-link"
+        class="w3-bar-item w3-mobile w3-button w3-text-yellow
+               w3-padding-16 w3-hover-none w3-hover-text-white"
+    >
+      Adopt a dog
+    </a>
+    <a
+        href="{% url 'shelter:cat-list' %}"
+        id="nav-link"
+        class="w3-bar-item w3-mobile w3-button w3-text-yellow
+               w3-padding-16 w3-hover-none w3-hover-text-white"
+    >
+      Adopt a cat
+    </a>
+  </div>
+</div>
+
+<script src="{% static 'js/open-sidebar.js' %}"></script>
