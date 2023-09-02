@@ -1,6 +1,6 @@
 <div align="center">
 
-# Pet Shelter Site 
+# Pet Shelter Website 
  
 <img src="static/images/logo.svg" height="200">
 </div>
@@ -28,21 +28,21 @@
 
 ## About Project
 
-Unfortunately, not every cat and dog have a loving family. Someone of them even lost that.
+Unfortunately, not every cat and dog has a loving family. Some of them even lost that.
 <br>
 It is also an important mission to give them back the happiness and faith in goodness that they deserve.
 <br>
-Whereas shelter volunteers and staff work with a large number of pets, they also need help structuring the large amount of information to make it easier to find new families for pets.
+Whereas shelter volunteers and staff work with a large number of pets, they also need help structuring a large amount of information to make it easier to find new families for pets.
 
-The Pet Shelter Site helps staff save data and help a potential new pet owner choose an pet.
+The Pet Shelter Site helps staff save data and help a potential new pet owner choose a pet.
 
 <br>
-The main functions of project:
+The main functions of the project:
 
-- Help people who wants to find a pet by choosing it on site;
+- Help people who want to find a pet by choosing it on the website;
 - Manage all pet information;
 -  Save information about pet owners to keep in touch with them;
-- Allow users get information about their pets, discounts and free vet consultation.
+- Allow users to get information about their pets, discounts and free vet consultations.
 
 <hr>
 
@@ -55,15 +55,15 @@ The main functions of project:
 ## Functional
 
 1. Create staff profiles in admin page (superuser required)
-2. Register new user account and pet account (staff required)
+2. Register a new user account and pet account (staff required)
 3. Add a new cat and dog breed (staff required)
-4. Change user's email and phone number
+4. Change the user's email and phone number
 5. Change all pet information (staff required)
-6. Search cat or dog who needs family in list by name and breed
-7. Search pet in pet list with all info about pet even who founded a family (staff required)
+6. Search cat or dog who needs family in the list by name and breed
+7. Search pet in the pet list with all the info about the pet even who founded a family (staff required)
 8. Search users by username, first name and last name (staff required)
-9. Look extra pet information in pet profile
-10. Look user information about pets, discounts in user profile
+9. Look for extra pet information in the pet profile
+10. Look for users and their pets' information and discounts in the user profile
 
 
 <hr>
@@ -71,11 +71,11 @@ The main functions of project:
 ## Technologies
 
 - [Django Official Documentation](https://docs.djangoproject.com/)
-<br>Django is a high-level Python Web framework. In this project, it's used to create the backend service. This service builds the Django application and exposes it on port 8080.
+<br>Django is a high-level Python Web framework. In this project, it's used to create the backend service. This service builds the Django application and exposes it on port 8000.
 
 
 - [Postgres Official Documentation](https://www.postgresql.org/docs/)
-<br>Postgres is a powerful, open-source object-relational database system. In this project, it is used as the main data store. This service runs the latest version of Postgres, exposed on port 5432. It uses a volume to persist the database data.
+<br>Postgres is a powerful, open-source object-relational database system. In this project, it is used as the main data store.
 <hr>
 
 ## Prerequisites
@@ -115,7 +115,7 @@ python manage.py runserver
 
 ## Accessing the Application
 
-1. Pet Shelter Site is accessible at `http://localhost:8000/`.
+1. The Pet Shelter Website is accessible at `http://localhost:8000/`.
 2. Django Admin Page is accessible at `http://localhost:8000/admin`.
 
 
@@ -129,7 +129,7 @@ Use these credentials to log in as a user
 
 ## Shutdown
 
-1. To stop running server use CTRL-BREAK
+1. To stop running the server use CTRL-BREAK
 
 <hr>
 
